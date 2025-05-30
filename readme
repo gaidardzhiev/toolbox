@@ -3,16 +3,23 @@ Toolbox is a compact, statically linked binary that combines many common command
 Much like BusyBox and ToyBox, toolbox offers streamlined replacements for many standard utilities you would typically find in GNU coreutils, util-linux, and other common Unix toolsets. While toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
 
 Why Toolbox?
+
  Single Binary Convenience: Instead of installing dozens of separate utilities, Toolbox bundles them into one executable. This reduces disk space usage, simplifies updates, and eases distribution.
  Static Linking: Toolbox is built as a statically linked binary, meaning it does not depend on external shared libraries at runtime. This makes it highly portable across different Linux distributions and environments without worrying about missing dependencies.
  Minimalist and Efficient: The commands are implemented with size and simplicity in mind, avoiding unnecessary complexity. This makes Toolbox ideal for embedded systems, containers, rescue environments, or minimal Linux setups where resources are limited.
  Extensible Command Dispatch: Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy addition of new commands without bloating the main program logic.
  Custom Utilities: Beyond standard Unix commands, Toolbox includes useful custom tools such as ascii2hex for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
 
-How It Works
+How It Works?
+
  Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it. 
- For example:
-  ./toolbox ls /proc
+ ./toolbox ls /proc
  Also one can invoke the commands using symbolic links to the toolbox binary:
   ln -s /usr/bin/toolbox /usr/bin/ls
   /bin/ls
+
+How to build?
+
+ If you dont have make and tcc installed run the ./toolchain_build.sh script.
+ make
+ make install
