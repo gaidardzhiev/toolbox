@@ -1,43 +1,18 @@
-basename - strip file name affixes
-cp - copy or moves files
-echo - print arguments
-kill - terminate a process
-ln - make links between files
-mount - mount a filesystem
-nice - execute a utility at an altered scheduling priority
-printf - format and print data
-rev - reverse lines characterwise
-sleep - suspend execution for an interval
-sync - commit filesystem caches to disk
-tee - pipe fitting
-touch - set modification date of a file
-true - do nothing successfully
-tty - print the file name of the terminal connected to stdin
-umount - unmount filesystem
-wc - display a count of lines words and characters in a file
-yes - output a string repeatedly until killed
-tr - transliterate data stream
-cat - concatenate files and print on the stdout
-shell - simple command-line shell
-pwd - print the path of the current directory
-ps - process status information
-grep - global regular expression print
-du - estimate file space usage
-rm - remove files
-ascii2hex - convert ASCII characters to their hexadecimal representation
-hexdump - display file content in hex
-false - do nothing unsuccessfully
-replace - regular expression pattern locator and change executor
-readelf - display information about ELF files
-strings - print sequences of printable characters
-ls - list directory contents
-xoda - dump files in hex octal decimal or ASCII
-id - print real and effective user and group IDs
-cmp - compare files byte by byte
-tree - list directories in a tree-like format
-kmsg - print messages from the kernel ring buffer
-file - determine file type by the magic bytes signature
-magic - read the first 16 bytes of a file in hex and ascii for magic signature inspection
-mem - print the memory layout of a process
-test - evaluate conditional expressions and returns 0 if true or 1 if false
-clear - clear the terminal screen
+Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit that provides essential Unix commands, all accessible through one binary, simplifying deployment and usage especially in resource-constrained or embedded environments.
+
+Much like BusyBox and ToyBox, toolbox offers streamlined replacements for many standard utilities you would typically find in GNU coreutils, util-linux, and other common Unix toolsets. While toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
+
+Why Toolbox?
+ Single Binary Convenience: Instead of installing dozens of separate utilities, Toolbox bundles them into one executable. This reduces disk space usage, simplifies updates, and eases distribution.
+ Static Linking: Toolbox is built as a statically linked binary, meaning it does not depend on external shared libraries at runtime. This makes it highly portable across different Linux distributions and environments without worrying about missing dependencies.
+ Minimalist and Efficient: The commands are implemented with size and simplicity in mind, avoiding unnecessary complexity. This makes Toolbox ideal for embedded systems, containers, rescue environments, or minimal Linux setups where resources are limited.
+ Extensible Command Dispatch: Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy addition of new commands without bloating the main program logic.
+ Custom Utilities: Beyond standard Unix commands, Toolbox includes useful custom tools such as ascii2hex for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
+
+How It Works
+ Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it. 
+ For example:
+  ./toolbox ls /proc
+ Also one can invoke the commands using symbolic links to the toolbox binary:
+  ln -s /usr/bin/toolbox /usr/bin/ls
+  /bin/ls
