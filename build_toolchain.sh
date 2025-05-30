@@ -9,8 +9,8 @@ fgcc() {
 	SRCDIR="/usr/src"
 	MAKEFLAGS="-j$(nproc)"
 	printf "do you want to build binutils, gcc and glibc form source? (y/n)\n"
-	read R
-	case "$R" in
+	read Z
+	case "$Z" in
 		y|Y)
 			printf "building binutils, gcc and glibc form.source...\n"
 			cd "$SRCDIR" || return 1
@@ -87,7 +87,7 @@ fgcc() {
 			$PREFIX/bin/gcc --version && return 0 || return 29
 			;;
 		n|N)
-			printf "you chose NOT to install gcc...\n"
+			printf "you chose NOT to build binutils, gcc and glibc from source...\n"
 			;;
 		*)
 			printf "invalid response...\n"
@@ -97,21 +97,30 @@ fgcc() {
 
 fmake() {
 	MK_VER="4.4"
-	make -v	&& {
-		printf "make is installed...\n";
-		return 0;
-	} || {
-		cd /usr/src || return 30
-		wget https://fosszone.csd.auth.gr/gnu/make/make-$MK_VER.tar.gz || return 31
-		tar xf make-$MK_VER.tar.gz || return 32
-		rm make-$MK_VER.tar.gz
-		cd make-$MK_VER || return 33
-		./build.sh || return 34
-		cp make /usr/bin || return 35
-		make -v && return 0 || return 36
-	}
+	printf "do you want to build make form source? (y/n)\n"
+	read X
+	case "$X" in
+		y|Y)
+			printf "building make from source...\n"	
+			cd /usr/src || return 30
+			wget https://fosszone.csd.auth.gr/gnu/make/make-$MK_VER.tar.gz || return 31
+			tar xf make-$MK_VER.tar.gz || return 32
+			rm make-$MK_VER.tar.gz
+			cd make-$MK_VER || return 33
+			./build.sh || return 34
+			cp make /usr/bin || return 35
+			make -v && return 0 || return 36
+			;;
+		n|N)
+			printf "you chose NOT to build make from source...\n"
+			;;
+		*)
+			printf "invalid response...\n"
+			;;
+	esac
+
 }
 
-{ fmake && printf "\n" && fgcc; RET=$?; } || exit 1
+{ fgcc && printf "\n" && fmake; RET=$?; } || exit 1
 
 [ "$RET" -eq 0 ] 2>/dev/null || printf "%s\n" "$RET"
