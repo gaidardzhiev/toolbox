@@ -1,4 +1,4 @@
-Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit that provides essential Unix commands, all accessible through one binary, simplifying deployment and usage especially in resource-constrained or embedded environments.
+Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit that provides essential Unix commands, all accessible through one binary, simplifying deployment and usage especially in resource constrained or embedded environments.
 
 Much like BusyBox and ToyBox, toolbox offers streamlined replacements for many standard utilities you would typically find in GNU coreutils, util-linux, and other common Unix toolsets. While toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
 
@@ -20,6 +20,6 @@ How It Works?
 
 How to build?
 
- If you dont have make and tcc installed run the ./toolchain_build.sh script.
+ ./toolchain_build.sh
  make
  make install

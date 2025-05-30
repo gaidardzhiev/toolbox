@@ -1,9 +1,9 @@
-CC=tcc
+CC=gcc
 BINS=toolbox
 all: $(BINS)
 
 $(BINS): %: %.c
-	$(CC) -o $@ $<
+	$(CC) -o $@ $< -static
 
 clean:
 	rm $(BINS)
