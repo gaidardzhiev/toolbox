@@ -299,7 +299,7 @@ int fa2x(int argc, char **argv) {
     return 0;
 }
 
-// --- main ---
+// --- main() ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: %s <command> <args>\n", argv[0]);
