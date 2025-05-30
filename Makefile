@@ -7,7 +7,6 @@ $(BINS): %: %.c
 
 clean:
 	rm $(BINS)
-	[ ! -f prand ] || rm prand
 
 install:
 	cp toolbox /usr/bin/toolbox

@@ -249,7 +249,7 @@ int fgrep(int argc, char **argv) {
 			r = 1;
 			continue;
 		}
-		char buf[4096];
+		char buf[65536];
 		while (fgets(buf, sizeof(buf), f)) {
 			if (strstr(buf, argv[1])) printf("%s", buf);
 		}
