@@ -14,9 +14,6 @@ How It Works?
 
  Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it. 
  ./toolbox ls /proc
- Also one can invoke the commands using symbolic links to the toolbox binary:
-  ln -s /usr/bin/toolbox /usr/bin/ls
-  /bin/ls
 
 How to build?
  make
