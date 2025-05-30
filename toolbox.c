@@ -216,8 +216,7 @@ int fdiff(int argc, char **argv) {
 
 
 // --- file ---
-int ffile(int argc, char **argv)
-{
+int ffile(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "Usage: %s path...\n", argv[0]);
 		return 1;
@@ -237,8 +236,7 @@ int ffile(int argc, char **argv)
 }
 
 // --- grep ---
-int fgrep(int argc, char **argv)
-{
+int fgrep(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: %s pattern file...\n", argv[0]);
 		return 1;
@@ -261,8 +259,7 @@ int fgrep(int argc, char **argv)
 }
 
 // --- rmdir ---
-int frmdir(int argc, char **argv)
-{
+int frmdir(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: %s dir...\n", argv[0]);
 		return 1;

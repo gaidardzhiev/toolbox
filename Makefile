@@ -11,6 +11,7 @@ clean:
 
 install:
 	cp toolbox /usr/bin/toolbox
+	cp toolbox.1 /usr/share/man/man1/
 
 .SILENT: prand
 prand:
