@@ -1,0 +1,74 @@
+.\" Manpage for toolbox
+.TH TOOLBOX 1 "2025-05-30" "Toolbox 1.0" "User Commands"
+.SH NAME
+toolbox \- a compact, statically linked binary combining many common Unix command line utilities
+.SH SYNOPSIS
+.B toolbox
+[\fICOMMAND\fR] [\fIARGS\fR]...
+.SH DESCRIPTION
+Toolbox is a minimalist and efficient toolkit that provides essential Unix commands
+through a single statically linked executable. It simplifies deployment and usage,
+especially in resource-constrained or embedded environments.
+
+Much like BusyBox and ToyBox, toolbox offers streamlined replacements for many standard
+utilities found in GNU coreutils, util-linux, and other common Unix toolsets. While
+toolbox commands may not include every advanced feature of their full-fledged GNU
+counterparts, they cover the core functionality expected by most users and scripts,
+ensuring familiar behavior and compatibility.
+
+.SH FEATURES
+.IP "\fBSingle Binary Convenience:\fR"
+Bundles many utilities into one executable, reducing disk space usage, simplifying updates,
+and easing distribution.
+
+.IP "\fBStatic Linking:\fR"
+Built as a statically linked binary with no runtime dependencies on shared libraries,
+ensuring portability across Linux distributions.
+
+.IP "\fBMinimalist and Efficient:\fR"
+Commands are designed for size and simplicity, ideal for embedded systems, containers,
+rescue environments, or minimal Linux setups.
+
+.IP "\fBExtensible Command Dispatch:\fR"
+Uses a clean mechanism to dispatch commands, allowing easy addition of new commands
+without bloating the main program.
+
+.IP "\fBCustom Utilities:\fR"
+Includes useful custom tools such as \fBascii2hex\fR for converting ASCII strings to
+hexadecimal notation, enhancing scripting and debugging.
+
+.SH USAGE
+Toolbox determines which command to run based on the first argument:
+
+.EX
+ ./toolbox ls /proc
+.EE
+
+Alternatively, commands can be invoked via symbolic links to the toolbox binary:
+
+.EX
+ln -s /usr/bin/toolbox /usr/bin/ls
+/bin/ls
+.EE
+
+.SH BUILD AND INSTALLATION
+To build and install toolbox, run the following commands:
+
+.EX
+git clone <repo>
+cd <repo>
+/bin/sh toolchain_build.sh
+make
+make install
+cp toolbox.1 /usr/share/man/man1/
+man toolbox
+.EE
+
+.SH AUTHOR
+Written and maintained by the Toolbox development team.
+
+.SH SEE ALSO
+busybox(1), toybox(1), coreutils(1)
+
+.SH BUGS
+No known bugs at this time. Please report issues to the project repository.
