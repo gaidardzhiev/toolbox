@@ -302,7 +302,7 @@ int fa2x(int argc, char **argv) {
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <command> <args>\n", argv[0]);
+		printf("usage: %s <cmd> <args>\n\ncommands: echo | cat | cp | kill | sleep | sync | touch | true | tty | yes | pwd | ps | grep | rm | ascii2hex | false | strings | ls | file | clear \n", argv[0]);
 		return 1;
 	}
 	if (strcmp(argv[1], "ls") == 0) return fls(argc-1, argv+1);
