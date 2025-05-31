@@ -218,7 +218,7 @@ int fdiff(int argc, char **argv) {
 // --- file ---
 int ffile(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "Usage: %s path...\n", argv[0]);
+		fprintf(stderr, "usage: %s <file>\n", argv[0]);
 		return 1;
 	}
 	struct stat s;
@@ -238,7 +238,7 @@ int ffile(int argc, char **argv) {
 // --- grep ---
 int fgrep(int argc, char **argv) {
 	if (argc < 3) {
-		fprintf(stderr, "usage: %s pattern file...\n", argv[0]);
+		fprintf(stderr, "usage: %s <pattern> <file>\n", argv[0]);
 		return 1;
 	}
 	int r = 0;
@@ -261,7 +261,7 @@ int fgrep(int argc, char **argv) {
 // --- rmdir ---
 int frmdir(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s dir...\n", argv[0]);
+		fprintf(stderr, "usage: %s <dir>\n", argv[0]);
 		return 1;
 	}
 	int r = 0;
@@ -343,6 +343,6 @@ int main(int argc, char **argv) {
 			return a[i].f(argc - 1, argv + 1);
 		}
 	}
-	fprintf(stderr, "unknown command: %s\n", in);
+	fprintf(stderr, "unknown command: %s...\n", in);
 	return 1;
 }
