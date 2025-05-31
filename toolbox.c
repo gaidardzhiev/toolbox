@@ -299,6 +299,13 @@ int fa2x(int argc, char **argv) {
     return 0;
 }
 
+// --- sync ---
+int ffsync(void) {
+	sync();//flush fs buffers
+	printf("filesystem sync completed...\n");
+	return 0;
+}
+
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
@@ -319,6 +326,7 @@ int main(int argc, char **argv) {
 	if (strcmp(argv[1], "grep") == 0) return fgrep(argc-1, argv+1);
 	if (strcmp(argv[1], "rmdir") == 0) return frmdir(argc-1, argv+1);
 	if (strcmp(argv[1], "ascii2hex") == 0) return fa2x(argc-1, argv+1);
+	if (strcmp(argv[1], "sync") == 0) return ffsync();
 	fprintf(stderr, "unknown command: %s\n", argv[1]);
 	return 1;
 }
