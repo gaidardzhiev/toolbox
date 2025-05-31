@@ -276,76 +276,57 @@ int frmdir(int argc, char **argv) {
 
 // --- ascii2hex ---
 int fa2x(int argc, char **argv) {
-	if (argc == 1) {
-		char z[65536];
-		if (!fgets(z, sizeof(z), stdin)) {
-			fprintf(stderr, "failed to read input\n");
-			return 1;
-		}
-		z[strcspn(z, "\n")] = 0;
-		for (int i = 0; i < (int)strlen(z); i++) {
-			printf("\\x%02X", (unsigned char)z[i]);
-		}
-		printf("\n");
-	} else {
-		for (int argi = 1; argi < argc; argi++) {
-			const char *z = argv[argi];
-			for (int i = 0; i < (int)strlen(z); i++) {
-				printf("\\x%02X", (unsigned char)z[i]);
-			}
-			printf("\n");
-		}
-	}
-	return 0;
+    if (argc == 1) {
+        char z[65536];
+        if (!fgets(z, sizeof(z), stdin)) {
+            fprintf(stderr, "failed to read input\n");
+            return 1;
+        }
+        z[strcspn(z, "\n")] = 0;
+        for (int i = 0; i < (int)strlen(z); i++) {
+            printf("\\x%02X", (unsigned char)z[i]);
+        }
+        printf("\n");
+    } else {
+        for (int argi = 1; argi < argc; argi++) {
+            const char *z = argv[argi];
+            for (int i = 0; i < (int)strlen(z); i++) {
+                printf("\\x%02X", (unsigned char)z[i]);
+            }
+            printf("\n");
+        }
+    }
+    return 0;
 }
 
 // --- sync ---
-int ffsync(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
-	sync();
+int ffsync(void) {
+	sync();//flush fs buffers
 	printf("filesystem sync completed...\n");
 	return 0;
 }
 
-
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n"
-		       "commands: echo | cat | cp | kill | sleep | sync | touch | true | tty | yes | pwd | ps | grep | rm | ascii2hex | false| strings | ls | file | clear | head\n",
-		       argv[0]);
+		printf("usage: %s <cmd> <args>\n\ncommands: echo | cat | cp | kill | sleep | sync | touch | true | tty | yes | pwd | ps | grep | rm | ascii2hex | false | strings | ls | file | clear | head \n", argv[0]);
 		return 1;
 	}
-	typedef struct {
-		const char *c;
-		int (*f)(int, char **);
-	} m;
-	m a[] = {
-		{"ls", fls},
-		{"cp", fcp},
-		{"mkdir", fmkdir},
-		{"cat", fcat},
-		{"echo", fecho},
-		{"kill", fkill},
-		{"clear", fclear},
-		{"rm", frm},
-		{"head", fhead},
-		{"diff", fdiff},
-		{"file", ffile},
-		{"grep", fgrep},
-		{"rmdir", frmdir},
-		{"ascii2hex", fa2x},
-		{"sync", ffsync}
-	};
-	size_t n = sizeof(a) / sizeof(a[0]);
-	const char *in = argv[1];
-	for (size_t i = 0; i < n; i++) {
-		if (strcmp(in, a[i].c) == 0) {
-			return a[i].f(argc - 1, argv + 1);
-		}
-	}
-	fprintf(stderr, "unknown command: %s\n", in);
+	if (strcmp(argv[1], "ls") == 0) return fls(argc-1, argv+1);
+	if (strcmp(argv[1], "cp") == 0) return fcp(argc-1, argv+1);
+	if (strcmp(argv[1], "mkdir") == 0) return fmkdir(argc-1, argv+1);
+	if (strcmp(argv[1], "cat") == 0) return fcat(argc-1, argv+1);
+	if (strcmp(argv[1], "echo") == 0) return fecho(argc-1, argv+1);
+	if (strcmp(argv[1], "kill") == 0) return fkill(argc-1, argv+1);
+	if (strcmp(argv[1], "clear") == 0) return fclear(argc-1, argv+1);
+	if (strcmp(argv[1], "rm") == 0) return frm(argc-1, argv+1);
+	if (strcmp(argv[1], "head") == 0) return fhead(argc-1, argv+1);
+	if (strcmp(argv[1], "diff") == 0) return fdiff(argc-1, argv+1);
+	if (strcmp(argv[1], "file") == 0) return ffile(argc-1, argv+1);
+	if (strcmp(argv[1], "grep") == 0) return fgrep(argc-1, argv+1);
+	if (strcmp(argv[1], "rmdir") == 0) return frmdir(argc-1, argv+1);
+	if (strcmp(argv[1], "ascii2hex") == 0) return fa2x(argc-1, argv+1);
+	if (strcmp(argv[1], "sync") == 0) return ffsync();
+	fprintf(stderr, "unknown command: %s\n", argv[1]);
 	return 1;
 }
-
