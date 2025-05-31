@@ -348,4 +348,3 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "unknown command: %s\n", in);
 	return 1;
 }
-
