@@ -8,11 +8,11 @@ fgcc() {
 	TARGET="x86_64-pc-linux-gnu"
 	SRCDIR="/usr/src"
 	MAKEFLAGS="-j$(nproc)"
-	printf "do you want to build binutils, gcc and glibc form source? (y/n)\n"
+	printf "do you want to build %s binutils, gcc and glibc form source? (y/n)\n" "$TARGET"
 	read Z
 	case "$Z" in
-		y|Y)
-			printf "building binutils, gcc and glibc form.source...\n"
+		[y]*)
+			printf "building %s binutils, gcc and glibc form.source...\n" "$TARGET"
 			cd "$SRCDIR" || return 1
 			wget -c https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILS_VER.tar.gz || return 2
 			tar xf binutils-$BINUTILS_VER.tar.gz
@@ -86,11 +86,12 @@ fgcc() {
 			make install || return 28
 			$PREFIX/bin/gcc --version && return 0 || return 29
 			;;
-		n|N)
+		[n]*)
 			printf "you chose NOT to build binutils, gcc and glibc from source...\n"
 			;;
 		*)
 			printf "invalid response...\n"
+			printf "(yes/no)\n"
 			;;
 	esac
 }
@@ -100,7 +101,7 @@ fmake() {
 	printf "do you want to build make form source? (y/n)\n"
 	read X
 	case "$X" in
-		y|Y)
+		[y]*)
 			printf "building make from source...\n"	
 			cd /usr/src || return 30
 			wget https://fosszone.csd.auth.gr/gnu/make/make-$MK_VER.tar.gz || return 31
@@ -111,14 +112,14 @@ fmake() {
 			cp make /usr/bin || return 35
 			make -v && return 0 || return 36
 			;;
-		n|N)
+		[n]*)
 			printf "you chose NOT to build make from source...\n"
 			;;
 		*)
 			printf "invalid response...\n"
+			printf "(yes/no)\n"
 			;;
 	esac
-
 }
 
 { fgcc && printf "\n" && fmake; RET=$?; } || exit 1
