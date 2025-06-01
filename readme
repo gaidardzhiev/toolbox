@@ -51,7 +51,7 @@ How It Works?
 
  /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
 
- ./toolbox head
+ ./toolbox head toolbox.c && echo $?
 
  ./toolbox diff
 
