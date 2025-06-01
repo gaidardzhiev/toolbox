@@ -33,35 +33,35 @@ How It Works?
 
  Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it:
 
- ./toolbox ls /proc && echo $?
+ ./toolbox ls /proc
 
- ./toolbox cp /proc/cpuinfo /tmp && echo ?
+ ./toolbox cp /proc/cpuinfo /tmp
 
- ./toolbox mkdir /tmp/test_dir && echo ?
+ ./toolbox mkdir /tmp/test_dir
 
- ./toolbox cat /proc/cpuinfo && echo $?
+ ./toolbox cat /proc/cpuinfo
 
- ./toolbox echo "Hack the World" && echo $?
+ ./toolbox echo "Hack the World"
 
  /usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
 
- ./toolbox clear && echo $?
+ ./toolbox clear
 
- /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
+ /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file
 
- ./toolbox head toolbox.c && echo $?
+ ./toolbox head toolbox.c
 
- ./toolbox diff
+ ./toolbox diff toolbox.c toolbox.1
 
- ./toolbox file toolbox && echo $?
+ ./toolbox file toolbox
 
- ./toolbox grep "grep" toolbox.c && echo $?
+ ./toolbox grep "grep" toolbox.c
 
- ./toolbox rmdir /tmp/test_dir && echo $?
+ ./toolbox rmdir /tmp/test_dir
 
  ./toolbox ascii2hex
 
- ./toolbox sync && echo $?
+ ./toolbox sync
 
 
 
