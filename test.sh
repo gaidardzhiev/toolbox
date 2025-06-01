@@ -44,7 +44,7 @@ ffile() {
 	./toolbox file toolbox && return 0 || return 12
 }
 
-fgrep() {
+ffgrep() {
 	./toolbox grep "grep" toolbox.c && return 0 || return 13
 }
 
@@ -59,3 +59,7 @@ fa2x() {
 fsync() {
 	./toolbox sync && return 0 || return 16
 }
+
+{ fls && fcp && fmkdir && fcat && fecho && fkill && fclear && frm && fhead && fdiff && ffile && ffgrep && frmdir && fsync; RET=$?; } || exit 1
+
+[ "$RET" -eq 0 ] 2>/dev/null || printf "%s\n" "$RET"
