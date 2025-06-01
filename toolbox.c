@@ -108,7 +108,7 @@ int fkill(int argc, char **argv) {
 	int pid_pos = 2;
 	if (strcmp(argv[1], "-s") == 0) {
 		if (argc < 4) {
-			fprintf(stderr, "missing SIGNAL or PID\n");
+			fprintf(stderr, E "missing SIGNAL or PID\n" R);
 			return 1;
 		}
 		sig = atoi(argv[2]);
@@ -156,7 +156,7 @@ int fhead(int argc, char **argv) {
 		perror("fopen");
 		return 1;
 	}
-	char buf[4096];
+	char buf[65536];
 	while (lines-- > 0 && fgets(buf, sizeof(buf), f)) printf("%s", buf);
 	fclose(f);
 	return 0;
@@ -428,7 +428,7 @@ int ffsync(int argc, char **argv) {
 	(void)argc;
 	(void)argv;
 	sync();
-	printf("filesystem sync completed...\n");
+	printf(G"filesystem cache committed to disk...\n"R);
 	return 0;
 }
 
