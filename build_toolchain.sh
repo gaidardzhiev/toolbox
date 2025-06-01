@@ -22,11 +22,12 @@ fgcc() {
 			../binutils-"$BINUTILS_VER"/configure \
 				--prefix="$PREFIX" \
 				--disable-nls \
+				--without-docs \
 				--disable-werror \
 				--enable-static \
 				--enable-shared=no \
 				--target="$TARGET" || return 4
-			make "$CPU" all install || return 5
+			make "$CPU" && make install || return 5
 			cd "$SRCDIR" || return 6
 			wget -c https://ftp.gnu.org/gnu/gcc/gcc-"$GCC_VER"/gcc-"$GCC_VER".tar.gz || return 7
 			tar xf gcc-"$GCC_VER".tar.gz
@@ -44,12 +45,13 @@ fgcc() {
 				--disable-shared \
 				--enable-static \
 				--with-newlib \
+				--without-docs \
 				--disable-libssp \
 				--disable-libquadmath \
 				--disable-libgomp \
 				--disable-libatomic \
 				--disable-libstdcxx-pch || return 12
-			make "$CPU" all-gcc all-target-libgcc install-gcc install-target-libgcc || return 13
+			make "$CPU" && make install || return 13
 			cd "$SRCDIR" || return 14
 			wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.1.tar.xz || return 15
 			tar xf linux-6.5.1.tar.xz
@@ -67,6 +69,7 @@ fgcc() {
 				--with-headers="$PREFIX/$TARGET/include" \
 				--disable-shared \
 				--enable-static \
+				--without-docs \
 				--disable-multilib \
 				--disable-profile \
 				--disable-werror || return 21
