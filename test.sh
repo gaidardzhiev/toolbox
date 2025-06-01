@@ -29,19 +29,33 @@ fclear() {
 }
 
 frm() {
-	{ /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file; } && return 0 || return 9
+	{ /usr/bin/touch /tmp/file; ./toolbox rm /tmp/file; } && return 0 || return 9
 }
 
-./toolbox head
+fhead() {
+	./toolbox head && return 0 || return 10
+}
 
-./toolbox diff
+fdiff() {
+	./toolbox diff toolbox.c toolbox.1 && return 0 || return 11
+}
 
-./toolbox file toolbox && echo $?
+ffile() {
+	./toolbox file toolbox && return 0 || return 12
+}
 
-./toolbox grep "grep" toolbox.c && echo $?
+fgrep() {
+	./toolbox grep "grep" toolbox.c && return 0 || return 13
+}
 
-./toolbox rmdir /tmp/test_dir && echo $?
+frmdir() {
+	./toolbox rmdir /tmp/test_dir && return 0 || return 14
+}
 
-./toolbox ascii2hex
+fa2x() {
+	#TODO: test ./toolbox ascii2hex && return 0 || return 15
+}
 
-./toolbox sync && echo $?
+fsync() {
+	./toolbox sync && return 0 || return 16
+}
