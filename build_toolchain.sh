@@ -15,7 +15,7 @@ fgcc() {
 			printf "building %s binutils, gcc and glibc form.source...\n" "$TARGET"
 			cd "$SRCDIR" || return 1
 			wget -c https://ftp.gnu.org/gnu/binutils/binutils-"$BINUTILS_VER".tar.gz || return 2
-			tar xf binutils-"$BINUTILS_VER".tar.gz
+			tar xfv binutils-"$BINUTILS_VER".tar.gz
 			rm binutils-"$BINUTILS_VER".tar.gz
 			mkdir -p binutils-build
 			cd binutils-build || return 3
@@ -30,7 +30,7 @@ fgcc() {
 			make "$CPU" && make install || return 5
 			cd "$SRCDIR" || return 6
 			wget -c https://ftp.gnu.org/gnu/gcc/gcc-"$GCC_VER"/gcc-"$GCC_VER".tar.gz || return 7
-			tar xf gcc-"$GCC_VER".tar.gz
+			tar xfv gcc-"$GCC_VER".tar.gz
 			rm gcc-"$GCC_VER".tar.gz
 			cd gcc-"$GCC_VER" || return 8
 			./contrib/download_prerequisites || return 9
@@ -54,13 +54,13 @@ fgcc() {
 			make "$CPU" && make install || return 13
 			cd "$SRCDIR" || return 14
 			wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.1.tar.xz || return 15
-			tar xf linux-6.5.1.tar.xz
+			tar xfv linux-6.5.1.tar.xz
 			rm linux-6.5.1.tar.xz
 			cd linux-6.5.1 || return 16
 			make ARCH=$(echo "$TARGET" | cut -d'-' -f1) INSTALL_HDR_PATH="$PREFIX/$TARGET" headers_install || return 17
 			cd "$SRCDIR" || return 18
 			wget -c https://ftp.gnu.org/gnu/libc/glibc-"$GLIBC_VER".tar.gz || return 19
-			tar xf glibc-"$GLIBC_VER".tar.gz
+			tar xfv glibc-"$GLIBC_VER".tar.gz
 			rm glibc-"$GLIBC_VER".tar.gz
 			mkdir -p glibc-build
 			cd glibc-build || return 20
