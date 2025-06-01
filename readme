@@ -9,9 +9,13 @@ What is Toolbox?
 Why Toolbox?
 
  Single Binary Convenience: Instead of installing dozens of separate utilities, Toolbox bundles them into one executable. This reduces disk space usage, simplifies updates, and eases distribution.
+
  Static Linking: Toolbox is built as a statically linked binary, meaning it does not depend on external shared libraries at runtime. This makes it highly portable across different Linux distributions and environments without worrying about missing dependencies.
+
  Minimalist and Efficient: The commands are implemented with size and simplicity in mind, avoiding unnecessary complexity. This makes Toolbox ideal for embedded systems, containers, rescue environments, or minimal Linux setups where resources are limited.
- Extensible Command Dispatch: Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy addition of new commands without bloating the main program logic.
+ 
+Extensible Command Dispatch: Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy addition of new commands without bloating the main program logic.
+
  Custom Utilities: Beyond standard Unix commands, Toolbox includes useful custom tools such as ascii2hex for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
 
 
@@ -42,6 +46,8 @@ How It Works?
  /usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
 
  ./toolbox clear && echo $?
+
+ ./toolbox rm /tmp/cpuinfo && echo $?
 
  /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
 
