@@ -52,9 +52,9 @@ frmdir() {
 	./toolbox rmdir /tmp/test_dir && return 0 || return 14
 }
 
-fa2x() {
-	#TODO: test ./toolbox ascii2hex && return 0 || return 15
-}
+#fa2x() {
+#	#TODO: test ./toolbox ascii2hex && return 0 || return 15
+#}
 
 fsync() {
 	./toolbox sync && return 0 || return 16

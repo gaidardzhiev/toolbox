@@ -15,12 +15,6 @@
 #define G "\x1b[92m"
 #define R "\x1b[0m"
 #define E "\x1b[91m"
-#define EI_DATA 5
-#define EI_VERSION 6
-#define EI_OSABI 7
-#define EI_ABIVERSION 8
-#define ELFDATA2LSB 1
-#define ELFDATA2MSB 2
 
 // --- ls ---
 int fls(int argc, char **argv) {
@@ -229,7 +223,7 @@ int fdiff(int argc, char **argv) {
 // --- file ---
 void felf(const char *filename) {
 	FILE *file;
-	unsigned char e_ident[16];
+	unsigned char e_ident[64];
 	file = fopen(filename, "rb");
 	if (!file) {
 		perror("error opening ELF file");
@@ -252,11 +246,6 @@ void felf(const char *filename) {
 	default:
 		printf(E "[unknown]\n" R);
 		break;
-	}
-	if (e_ident[5] == 1) {
-		printf("linked:" G "[dynamically]\n" R);
-	} else {
-		printf("linked:" G "[statically]\n" R);
 	}
 	printf("CPU type: ");
 	unsigned char e_machine[2] = {0, 0};
@@ -287,20 +276,20 @@ void felf(const char *filename) {
 		break;
 	}
 	printf("data encoding: ");
-	switch (e_ident[EI_DATA]) {
-	case ELFDATA2LSB:
+	switch (e_ident[5]) {
+	case 1:
 		printf(G "[little endian]\n" R);
 		break;
-	case ELFDATA2MSB:
+	case 2:
 		printf(G "[big endian]\n" R);
 		break;
 	default:
 		printf(E "[unknown]\n" R);
 		break;
 	}
-	printf("version: " G "[%d]\n" R, e_ident[EI_VERSION]);
-	printf("OS/ABI: " G "[%d]\n" R, e_ident[EI_OSABI]);
-	printf("ABI version: " G "[%d]\n" R, e_ident[EI_ABIVERSION]);
+	printf("version: " G "[%d]\n" R, e_ident[6]);
+	printf("OS/ABI: " G "[%d]\n" R, e_ident[7]);
+	printf("ABI version: " G "[%d]\n" R, e_ident[8]);
 }
 
 void ftype(const char *filename) {
