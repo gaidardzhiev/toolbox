@@ -251,10 +251,7 @@ int fgrep(int argc, char **argv) {
 		}
 		char buf[65536];
 		while (fgets(buf, sizeof(buf), f)) {
-			char *m;
-			if ((m = strstr(buf, argv[1]))) {
-				printf("%.*s\x1b[92m%s\x1b[0m%s", (int)(m - buf), buf, argv[1], m + strlen(argv[1]));
-			}
+			if (strstr(buf, argv[1])) printf("%s", buf);
 		}
 		fclose(f);
 	}
