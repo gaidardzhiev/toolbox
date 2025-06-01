@@ -70,18 +70,33 @@ How It Works?
 Suported commands:
 
  ls - list directory contents
+
  cp - copy files
+
  mkdir  - create a directory
+
  cat - concatenate files and print on the stdout
+
  echo - print arguments
+
  kill - terminate a process
+
  clear - clear the terminal screen
+
  rm - remove files
+
  head - output the first part of a file
+
  diff - compare files line by line
+
  file - determine file type by the magic bytes signature
+
  grep - global regular expression print
+
  rmdir - remove directory
+
  sync - commit filesystem caches to disk
+
  ascii2hex - convert ASCII characters to their hexadecimal representation
+
  sync - commit filesystem caches to disk
