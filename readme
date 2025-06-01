@@ -1,6 +1,10 @@
-Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit that provides essential Unix commands, all accessible through one binary, simplifying deployment and usage especially in resource constrained or embedded environments.
+What is Toolbox?
 
-Much like BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard utilities you would typically find in GNU coreutils, util-linux, and other common Unix toolsets. While toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
+ Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit that provides essential Unix commands, all accessible through one binary, simplifying deployment and usage especially in resource constrained or embedded environments.
+
+ Much like BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard utilities you would typically find in GNU coreutils, util-linux, and other common Unix toolsets. While toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
+
+
 
 Why Toolbox?
 
@@ -10,31 +14,52 @@ Why Toolbox?
  Extensible Command Dispatch: Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy addition of new commands without bloating the main program logic.
  Custom Utilities: Beyond standard Unix commands, Toolbox includes useful custom tools such as ascii2hex for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
 
+
+
+How to build?
+
+ ./toolchain_build.sh
+ make
+ make install
+ man toolbox
+
+
+
 How It Works?
 
  Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it:
 
  ./toolbox ls /proc && echo $?
+
  ./toolbox cp /proc/cpuinfo /tmp && echo ?
+
  ./toolbox mkdir /tmp/test_dir && echo ?
+
  ./toolbox cat /proc/cpuinfo && echo $?
+
  ./toolbox echo "Hack the World" && echo $?
- sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
+
+ /usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
+
  ./toolbox clear && echo $?
- touch /tmp/file && ./toolbox rm /tmp/file && echo $?
+
+ /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
+
  ./toolbox head
+
  ./toolbox diff
+
  ./toolbox file toolbox && echo $?
+
  ./toolbox grep "grep" toolbox.c && echo $?
+
  ./toolbox rmdir /tmp/test_dir && echo $?
+
  ./toolbox ascii2hex
+
  ./toolbox sync && echo $?
+
 
 
 Suported commands:
  ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync
-
-How to build?
- make
- make install
- man toolbox
