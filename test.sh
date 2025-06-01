@@ -1,22 +1,36 @@
 #!/bin/sh
 
-./toolbox ls /proc && echo $?
+fls() {
+	./toolbox ls /proc && return 0 || return 2
+}
 
-./toolbox cp /proc/cpuinfo /tmp && echo ?
+fcp() {
+	./toolbox cp /proc/cpuinfo /tmp && return 0 || return 3
+}
 
-./toolbox mkdir /tmp/test_dir && echo ?
+fmkdir() {
+	./toolbox mkdir /tmp/test_dir && return 0 || return 4
+}
 
-./toolbox cat /proc/cpuinfo && echo $?
+fcat() {
+	./toolbox cat /proc/cpuinfo && return 0 || return 5
+}
 
-./toolbox echo "Hack the World" && echo $?
+fecho() {
+	./toolbox echo "Hack the World" && return 0 || return 6
+}
 
-/usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
+fkill() {
+	/usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {} && return 0 || return 7
+}
 
-./toolbox clear && echo $?
+fclear() {
+	./toolbox clear && return 0 || return 8
+}
 
-./toolbox rm /tmp/cpuinfo && echo $?
-
-/usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
+frm() {
+	{ /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file; } && return 0 || return 9
+}
 
 ./toolbox head
 

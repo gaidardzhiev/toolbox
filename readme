@@ -47,8 +47,6 @@ How It Works?
 
  ./toolbox clear && echo $?
 
- ./toolbox rm /tmp/cpuinfo && echo $?
-
  /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file && echo $?
 
  ./toolbox head toolbox.c && echo $?
