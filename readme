@@ -12,8 +12,27 @@ Why Toolbox?
 
 How It Works?
 
- Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it. 
- ./toolbox ls /proc
+ Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it:
+
+ ./toolbox ls /proc && echo $?
+ ./toolbox cp /proc/cpuinfo /tmp && echo ?
+ ./toolbox mkdir /tmp/test_dir && echo ?
+ ./toolbox cat /proc/cpuinfo && echo $?
+ ./toolbox echo "Hack the World" && echo $?
+ sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
+ ./toolbox clear && echo $?
+ touch /tmp/file && ./toolbox rm /tmp/file && echo $?
+ ./toolbox head
+ ./toolbox diff
+ ./toolbox file toolbox && echo $?
+ ./toolbox grep "grep" toolbox.c && echo $?
+ ./toolbox rmdir /tmp/test_dir && echo $?
+ ./toolbox ascii2hex
+ ./toolbox sync && echo $?
+
+
+Suported commands:
+ ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync
 
 How to build?
  make
