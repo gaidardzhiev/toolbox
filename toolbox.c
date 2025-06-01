@@ -448,7 +448,7 @@ int ffsync(int argc, char **argv) {
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: echo | cat | cp | kill | sleep | sync | touch | true | tty | yes | pwd | ps | grep | rm | ascii2hex | false| strings | ls | file | clear | head\n", argv[0]);
+		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
