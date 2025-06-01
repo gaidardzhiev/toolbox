@@ -77,8 +77,8 @@ Suported commands:
  kill - terminate a process
  clear - clear the terminal screen
  rm - remove files
- head -
- diff -
+ head - output the first part of a file
+ diff - compare files line by line
  file - determine file type by the magic bytes signature
  grep - global regular expression print
  rmdir - remove directory
