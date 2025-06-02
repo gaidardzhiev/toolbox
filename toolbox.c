@@ -12,7 +12,7 @@
 #include <ctype.h>
 #include <elf.h>
 
-#define G "\x1b[92m"
+#define X "\x1b[92m"
 #define Y "\x1b[0m"
 #define Z "\x1b[91m"
 
@@ -174,13 +174,13 @@ void felf(const char *filename) {
 	printf("architecture: ");
 	switch (e_ident[4]) {
 	case 1:
-		printf(G "[32-bit]\n"Y);
+		printf(X"[32-bit]\n"Y);
 		break;
 	case 2:
-		printf(G "[64-bit]\n"Y);
+		printf(X"[64-bit]\n"Y);
 		break;
 	default:
-		printf(Z"[unknown]\n"Y);
+		printf(X"[unknown]\n"Y);
 		break;
 	}
 	printf("CPU type: ");
@@ -199,13 +199,13 @@ void felf(const char *filename) {
 	unsigned short machine = e_machine[0] | (e_machine[1] << 8);
 	switch (machine) {
 	case 0x28:
-		printf(G "[ARM]\n"Y);
+		printf(X"[ARM]\n"Y);
 		break;
 	case 0x3E:
-		printf(G "[x86_64]\n"Y);
+		printf(X"[x86_64]\n"Y);
 		break;
 	case 0x03:
-		printf(G "[x86]\n"Y);
+		printf(X"[x86]\n"Y);
 		break;
 	default:
 		printf(Z"[unknown]\n"Y);
@@ -214,18 +214,18 @@ void felf(const char *filename) {
 	printf("data encoding: ");
 	switch (e_ident[5]) {
 	case 1:
-		printf(G "[little endian]\n"Y);
+		printf(X"[little endian]\n"Y);
 		break;
 	case 2:
-		printf(G "[big endian]\n"Y);
+		printf(X"[big endian]\n"Y);
 		break;
 	default:
 		printf(Z"[unknown]\n"Y);
 		break;
 	}
-	printf("version: " G "[%d]\n"Y, e_ident[6]);
-	printf("OS/ABI: " G "[%d]\n"Y, e_ident[7]);
-	printf("ABI version: " G "[%d]\n"Y, e_ident[8]);
+	printf("version: "X"[%d]\n"Y, e_ident[6]);
+	printf("OS/ABI: "X"[%d]\n"Y, e_ident[7]);
+	printf("ABI version: "X"[%d]\n"Y, e_ident[8]);
 }
 
 void fmagic(const char *filename) {
@@ -243,42 +243,42 @@ void fmagic(const char *filename) {
 	}
 	fclose(file);
 	if (header[0] == 0x7f && header[1] == 'E' && header[2] == 'L' && header[3] == 'F') {
-		printf("%s: " G "[ELF executable linkable format]\n"Y, filename);
+		printf("%s: "X"[ELF executable linkable format]\n"Y, filename);
 		felf(filename);
 	} else if (header[0] == '#' && header[1] == '!') {
-		printf("%s: " G "[POSIX shell script]\n"Y, filename);
+		printf("%s: "X"[POSIX shell script]\n"Y, filename);
 	} else if (header[0] == 0x42 && header[1] == 0x5A) {
-		printf("%s: " G "[BZIP2 compressed format]\n"Y, filename);
+		printf("%s: "X"[BZIP2 compressed format]\n"Y, filename);
 	} else if (header[0] == 0x50 && header[1] == 0x4B) {
-		printf("%s: " G "[ZIP file format]\n"Y, filename);
+		printf("%s: "X"[ZIP file format]\n"Y, filename);
 	} else if (header[0] == 0x37 && header[1] == 0x7A) {
-		printf("%s: " G "[7-Zip compressed format]\n"Y, filename);
+		printf("%s: "X"[7-Zip compressed format]\n"Y, filename);
 	} else if (header[0] == 0x89 && header[1] == 'P' && header[2] == 'N' && header[3] == 'G') {
-		printf("%s: " G "[PNG portable network graphics]\n"Y, filename);
+		printf("%s: "X"[PNG portable network graphics]\n"Y, filename);
 	} else if (header[0] == 'B' && header[1] == 'M') {
-		printf("%s: " G "[BMP bitmap image file]\n"Y, filename);
+		printf("%s: "X"[BMP bitmap image file]\n"Y, filename);
 	} else if (header[0] == 'G' && header[1] == 'I' && header[2] == 'F') {
-		printf("%s: " G "[GIF graphics interchange format]\n"Y, filename);
+		printf("%s: "X"[GIF graphics interchange format]\n"Y, filename);
 	} else if (header[0] == 0x25 && header[1] == 0x50 && header[2] == 0x44 && header[3] == 0x46) {
-		printf("%s: " G "[PDF document format]\n"Y, filename);
+		printf("%s: "X"[PDF document format]\n"Y, filename);
 	} else if (header[0] == 0x4D && header[1] == 0x5A) {
-		printf("%s: " G "[PE executable format]\n"Y, filename);
+		printf("%s: "X"[PE executable format]\n"Y, filename);
 	} else if (header[0] == 0x7F && header[1] == 'S' && header[2] == 'N' && header[3] == 'A') {
-		printf("%s: " G "[SNAX file format]\n"Y, filename);
+		printf("%s: "X"[SNAX file format]\n"Y, filename);
 	} else if (header[0] == 0x1F && header[1] == 0x8B) {
-		printf("%s: " G "[GZIP compressed format]\n"Y, filename);
+		printf("%s: "X"[GZIP compressed format]\n"Y, filename);
 	} else if (header[0] == 0x52 && header[1] == 0x61 && header[2] == 0x72 && header[3] == 0x21) {
-		printf("%s: " G "[RAR archive format]\n"Y, filename);
+		printf("%s: "X"[RAR archive format]\n"Y, filename);
 	} else if (header[0] == 0x52 && header[1] == 0x49) {
-		printf("%s: " G "[RIFF file format]\n"Y, filename);
+		printf("%s: "X"[RIFF file format]\n"Y, filename);
 	} else if (header[0] == 0x4D && header[1] == 0x54) {
-		printf("%s: " G "[MIDI file format]\n"Y, filename);
+		printf("%s: "X"[MIDI file format]\n"Y, filename);
 	} else if (header[0] == 0x1A && header[1] == 0x45) {
-		printf("%s: " G "[matroska file format]\n"Y, filename);
+		printf("%s: "X"[matroska file format]\n"Y, filename);
 	} else if (header[0] == 0x66 && header[1] == 0x74) {
-		printf("%s: " G "[FLAC audio format]\n"Y, filename);
+		printf("%s: "X"[FLAC audio format]\n"Y, filename);
 	} else if (header[0] == 0x4F && header[1] == 0x67) {
-		printf("%s: " G "[OGG audio format]\n"Y, filename);
+		printf("%s: "X"[OGG audio format]\n"Y, filename);
 	} else {
 		printf("%s: "Z"[unknown file type]\n"Y, filename);
 	}
@@ -363,7 +363,7 @@ int fa2x(int argc, char **argv) {
 // --- sync ---
 int ffsync(int argc, char **argv) {
 	sync();
-	printf(G "filesystem cache committed to disk...\n"Y);
+	printf(X"filesystem cache committed to disk...\n"Y);
 	return 0;
 }
 
@@ -381,7 +381,7 @@ int ffalse(int argc, char **argv) {
 int ftty(int argc, char **argv) {
 	char *tty_name = ttyname(STDIN_FILENO);
 	if (tty_name)
-		printf(G "%s\n"Y, tty_name);
+		printf("%s\n", tty_name);
 	else
 		printf(Z"not a tty...\n"Y);
 	return 0;
