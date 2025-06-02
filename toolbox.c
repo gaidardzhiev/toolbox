@@ -13,15 +13,15 @@
 #include <elf.h>
 
 #define G "\x1b[92m"
-#define R "\x1b[0m"
-#define E "\x1b[91m"
+#define Y "\x1b[0m"
+#define Z "\x1b[91m"
 
 // --- ls ---
 int fls(int argc, char **argv) {
 	const char *dir = argc > 1 ? argv[1] : ".";
 	DIR *dp = opendir(dir);
 	if (!dp) {
-		perror(E "opendir() failed" R);
+		perror(Z"opendir() failed"Y);
 		return 1;
 	}
 	struct dirent *e;
@@ -38,12 +38,12 @@ int fcp(int argc, char **argv) {
 	}
 	FILE *fs = fopen(argv[1], "rb");
 	if (!fs) {
-		perror(E "fopen() src failed" R);
+		perror(Z"fopen() src failed"Y);
 		return 2;
 	}
 	FILE *fd = fopen(argv[2], "wb");
 	if (!fd) {
-		perror(E "fopen() dst failed" R);
+		perror(Z"fopen() dst failed"Y);
 		fclose(fs);
 		return 3;
 	}
@@ -51,7 +51,7 @@ int fcp(int argc, char **argv) {
 	size_t n;
 	while ((n = fread(buf, 1, sizeof(buf), fs)))
 		if (fwrite(buf, 1, n, fd) != n) {
-			perror(E "fwrite() failed" R);
+			perror(Z"fwrite() failed"Y);
 			fclose(fs);
 			fclose(fd);
 			return 4;
@@ -69,7 +69,7 @@ int fmkdir(int argc, char **argv) {
 		return 1;
 	}
 	if (mkdir(argv[1], 0777) == -1) {
-		perror(E "mkdir() failed" R);
+		perror(Z"mkdir() failed"Y);
 		return 1;
 	}
 	return 0;
@@ -85,7 +85,7 @@ int fcat(int argc, char **argv) {
 	FILE *f;
 	for (int i = 1; i < argc; i++) {
 		if (!(f = fopen(argv[i], "r"))) {
-			perror(E "fopen() failed" R);
+			perror(Z"fopen() failed"Y);
 			continue;
 		}
 		char buf[65536];
@@ -110,7 +110,7 @@ int fkill(int argc, char **argv) {
 	int sig = atoi(argv[1]);
 	pid_t pid = (pid_t)atoi(argv[2]);
 	if (kill(pid, sig) == -1) {
-		perror(E "kill() failed" R);
+		perror(Z"kill() failed"Y);
 		return 1;
 	}
 	return 0;
@@ -131,7 +131,7 @@ int frm(int argc, char **argv) {
 	int r = 0;
 	for (int i = 1; i < argc; i++) {
 		if (unlink(argv[i]) == -1) {
-			perror(E "unlink() failed" R);
+			perror(Z"unlink() failed"Y);
 			r = 1;
 		}
 	}
@@ -147,7 +147,7 @@ int fhead(int argc, char **argv) {
 	int lines = argc > 2 ? atoi(argv[2]) : 10;
 	FILE *f = fopen(argv[1], "r");
 	if (!f) {
-		perror(E "fopen() failed" R);
+		perror(Z"fopen() failed"Y);
 		return 1;
 	}
 	char buf[65536];
@@ -162,11 +162,11 @@ void felf(const char *filename) {
 	unsigned char e_ident[64];
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror(E "error opening ELF file" R);
+		perror(Z"error opening ELF file"Y);
 		return;
 	}
 	if (fread(e_ident, 1, sizeof(e_ident), file) < sizeof(e_ident)) {
-		perror(E "error reading ELF header" R);
+		perror(Z"error reading ELF header"Y);
 		fclose(file);
 		return;
 	}
@@ -174,24 +174,24 @@ void felf(const char *filename) {
 	printf("architecture: ");
 	switch (e_ident[4]) {
 	case 1:
-		printf(G "[32-bit]\n" R);
+		printf(G "[32-bit]\n"Y);
 		break;
 	case 2:
-		printf(G "[64-bit]\n" R);
+		printf(G "[64-bit]\n"Y);
 		break;
 	default:
-		printf(E "[unknown]\n" R);
+		printf(Z"[unknown]\n"Y);
 		break;
 	}
 	printf("CPU type: ");
 	unsigned char e_machine[2] = {0, 0};
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror(E "error reopening ELF file" R);
+		perror(Z"error reopening ELF file"Y);
 		return;
 	}
 	if (fseek(file, 18, SEEK_SET) != 0 || fread(e_machine, 1, 2, file) < 2) {
-		perror(E "error reading ELF machine type" R);
+		perror(Z"error reading ELF machine type"Y);
 		fclose(file);
 		return;
 	}
@@ -199,33 +199,33 @@ void felf(const char *filename) {
 	unsigned short machine = e_machine[0] | (e_machine[1] << 8);
 	switch (machine) {
 	case 0x28:
-		printf(G "[ARM]\n" R);
+		printf(G "[ARM]\n"Y);
 		break;
 	case 0x3E:
-		printf(G "[x86_64]\n" R);
+		printf(G "[x86_64]\n"Y);
 		break;
 	case 0x03:
-		printf(G "[x86]\n" R);
+		printf(G "[x86]\n"Y);
 		break;
 	default:
-		printf(E "[unknown]\n" R);
+		printf(Z"[unknown]\n"Y);
 		break;
 	}
 	printf("data encoding: ");
 	switch (e_ident[5]) {
 	case 1:
-		printf(G "[little endian]\n" R);
+		printf(G "[little endian]\n"Y);
 		break;
 	case 2:
-		printf(G "[big endian]\n" R);
+		printf(G "[big endian]\n"Y);
 		break;
 	default:
-		printf(E "[unknown]\n" R);
+		printf(Z"[unknown]\n"Y);
 		break;
 	}
-	printf("version: " G "[%d]\n" R, e_ident[6]);
-	printf("OS/ABI: " G "[%d]\n" R, e_ident[7]);
-	printf("ABI version: " G "[%d]\n" R, e_ident[8]);
+	printf("version: " G "[%d]\n"Y, e_ident[6]);
+	printf("OS/ABI: " G "[%d]\n"Y, e_ident[7]);
+	printf("ABI version: " G "[%d]\n"Y, e_ident[8]);
 }
 
 void fmagic(const char *filename) {
@@ -233,54 +233,54 @@ void fmagic(const char *filename) {
 	unsigned char header[16];
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror(E "fopen() failed" R);
+		perror(Z"fopen() failed"Y);
 		return;
 	}
 	if (fread(header, 1, sizeof(header), file) < 4) {
-		perror(E "fread() failed" R);
+		perror(Z"fread() failed"Y);
 		fclose(file);
 		return;
 	}
 	fclose(file);
 	if (header[0] == 0x7f && header[1] == 'E' && header[2] == 'L' && header[3] == 'F') {
-		printf("%s: " G "[ELF executable linkable format]\n" R, filename);
+		printf("%s: " G "[ELF executable linkable format]\n"Y, filename);
 		felf(filename);
 	} else if (header[0] == '#' && header[1] == '!') {
-		printf("%s: " G "[POSIX shell script]\n" R, filename);
+		printf("%s: " G "[POSIX shell script]\n"Y, filename);
 	} else if (header[0] == 0x42 && header[1] == 0x5A) {
-		printf("%s: " G "[BZIP2 compressed format]\n" R, filename);
+		printf("%s: " G "[BZIP2 compressed format]\n"Y, filename);
 	} else if (header[0] == 0x50 && header[1] == 0x4B) {
-		printf("%s: " G "[ZIP file format]\n" R, filename);
+		printf("%s: " G "[ZIP file format]\n"Y, filename);
 	} else if (header[0] == 0x37 && header[1] == 0x7A) {
-		printf("%s: " G "[7-Zip compressed format]\n" R, filename);
+		printf("%s: " G "[7-Zip compressed format]\n"Y, filename);
 	} else if (header[0] == 0x89 && header[1] == 'P' && header[2] == 'N' && header[3] == 'G') {
-		printf("%s: " G "[PNG portable network graphics]\n" R, filename);
+		printf("%s: " G "[PNG portable network graphics]\n"Y, filename);
 	} else if (header[0] == 'B' && header[1] == 'M') {
-		printf("%s: " G "[BMP bitmap image file]\n" R, filename);
+		printf("%s: " G "[BMP bitmap image file]\n"Y, filename);
 	} else if (header[0] == 'G' && header[1] == 'I' && header[2] == 'F') {
-		printf("%s: " G "[GIF graphics interchange format]\n" R, filename);
+		printf("%s: " G "[GIF graphics interchange format]\n"Y, filename);
 	} else if (header[0] == 0x25 && header[1] == 0x50 && header[2] == 0x44 && header[3] == 0x46) {
-		printf("%s: " G "[PDF document format]\n" R, filename);
+		printf("%s: " G "[PDF document format]\n"Y, filename);
 	} else if (header[0] == 0x4D && header[1] == 0x5A) {
-		printf("%s: " G "[PE executable format]\n" R, filename);
+		printf("%s: " G "[PE executable format]\n"Y, filename);
 	} else if (header[0] == 0x7F && header[1] == 'S' && header[2] == 'N' && header[3] == 'A') {
-		printf("%s: " G "[SNAX file format]\n" R, filename);
+		printf("%s: " G "[SNAX file format]\n"Y, filename);
 	} else if (header[0] == 0x1F && header[1] == 0x8B) {
-		printf("%s: " G "[GZIP compressed format]\n" R, filename);
+		printf("%s: " G "[GZIP compressed format]\n"Y, filename);
 	} else if (header[0] == 0x52 && header[1] == 0x61 && header[2] == 0x72 && header[3] == 0x21) {
-		printf("%s: " G "[RAR archive format]\n" R, filename);
+		printf("%s: " G "[RAR archive format]\n"Y, filename);
 	} else if (header[0] == 0x52 && header[1] == 0x49) {
-		printf("%s: " G "[RIFF file format]\n" R, filename);
+		printf("%s: " G "[RIFF file format]\n"Y, filename);
 	} else if (header[0] == 0x4D && header[1] == 0x54) {
-		printf("%s: " G "[MIDI file format]\n" R, filename);
+		printf("%s: " G "[MIDI file format]\n"Y, filename);
 	} else if (header[0] == 0x1A && header[1] == 0x45) {
-		printf("%s: " G "[matroska file format]\n" R, filename);
+		printf("%s: " G "[matroska file format]\n"Y, filename);
 	} else if (header[0] == 0x66 && header[1] == 0x74) {
-		printf("%s: " G "[FLAC audio format]\n" R, filename);
+		printf("%s: " G "[FLAC audio format]\n"Y, filename);
 	} else if (header[0] == 0x4F && header[1] == 0x67) {
-		printf("%s: " G "[OGG audio format]\n" R, filename);
+		printf("%s: " G "[OGG audio format]\n"Y, filename);
 	} else {
-		printf("%s: " E "[unknown file type]\n" R, filename);
+		printf("%s: "Z"[unknown file type]\n"Y, filename);
 	}
 }
 
@@ -303,7 +303,7 @@ int fgrep(int argc, char **argv) {
 	for (int i = 2; i < argc; i++) {
 		FILE *f = fopen(argv[i], "r");
 		if (!f) {
-			perror(E "fopen() failed" R);
+			perror(Z"fopen() failed"Y);
 			r = 1;
 			continue;
 		}
@@ -328,7 +328,7 @@ int frmdir(int argc, char **argv) {
 	int r = 0;
 	for (int i = 1; i < argc; i++) {
 		if (rmdir(argv[i]) == -1) {
-			perror(E "rmdir() failed" R);
+			perror(Z"rmdir() failed"Y);
 			r = 1;
 		}
 	}
@@ -340,7 +340,7 @@ int fa2x(int argc, char **argv) {
 	if (argc == 1) {
 		char z[65536];
 		if (!fgets(z, sizeof(z), stdin)) {
-			fprintf(stderr, E "failed to read input\n" R);
+			fprintf(stderr,Z"failed to read input\n"Y);
 			return 1;
 		}
 		z[strcspn(z, "\n")] = 0;
@@ -363,7 +363,7 @@ int fa2x(int argc, char **argv) {
 // --- sync ---
 int ffsync(int argc, char **argv) {
 	sync();
-	printf(G "filesystem cache committed to disk...\n" R);
+	printf(G "filesystem cache committed to disk...\n"Y);
 	return 0;
 }
 
@@ -381,9 +381,9 @@ int ffalse(int argc, char **argv) {
 int ftty(int argc, char **argv) {
 	char *tty_name = ttyname(STDIN_FILENO);
 	if (tty_name)
-		printf(G "%s\n" R, tty_name);
+		printf(G "%s\n"Y, tty_name);
 	else
-		printf(E "not a tty...\n" R);
+		printf(Z"not a tty...\n"Y);
 	return 0;
 }
 
@@ -424,6 +424,6 @@ int main(int argc, char **argv) {
 			return a[i].f(argc - 1, argv + 1);
 		}
 	}
-	fprintf(stderr, "unknown command: " E "%s\n" R, in);
+	fprintf(stderr, "unknown command: "Z"%s\n"Y, in);
 	return 1;
 }
