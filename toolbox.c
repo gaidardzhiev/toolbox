@@ -424,6 +424,6 @@ int main(int argc, char **argv) {
 			return a[i].f(argc - 1, argv + 1);
 		}
 	}
-	fprintf(stderr, E "unknown command: %s...\n" R, in);
+	fprintf(stderr, "unknown command: " E "%s\n" R, in);
 	return 1;
 }
