@@ -21,7 +21,7 @@ int fls(int argc, char **argv) {
 	const char *dir = argc > 1 ? argv[1] : ".";
 	DIR *dp = opendir(dir);
 	if (!dp) {
-		perror("opendir");
+		perror(E "opendir() failed" R);
 		return 1;
 	}
 	struct dirent *e;
@@ -38,20 +38,23 @@ int fcp(int argc, char **argv) {
 	}
 	FILE *fs = fopen(argv[1], "rb");
 	if (!fs) {
-		perror("fopen src");
-		return 1;
+		perror(E "fopen() src failed" R);
+		return 2;
 	}
 	FILE *fd = fopen(argv[2], "wb");
 	if (!fd) {
-		perror("fopen dst");
+		perror(E "fopen() dst failed" R);
 		fclose(fs);
-		return 1;
+		return 3;
 	}
 	char buf[65536];
 	size_t n;
 	while ((n = fread(buf, 1, sizeof(buf), fs)))
 		if (fwrite(buf, 1, n, fd) != n) {
-			perror("fwrite");
+			perror(E "fwrite() failed" R);
+			fclose(fs);
+			fclose(fd);
+			return 4;
 			break;
 		}
 	fclose(fs);
@@ -66,7 +69,7 @@ int fmkdir(int argc, char **argv) {
 		return 1;
 	}
 	if (mkdir(argv[1], 0777) == -1) {
-		perror("mkdir");
+		perror(E "mkdir() failed" R);
 		return 1;
 	}
 	return 0;
@@ -82,7 +85,7 @@ int fcat(int argc, char **argv) {
 	FILE *f;
 	for (int i = 1; i < argc; i++) {
 		if (!(f = fopen(argv[i], "r"))) {
-			perror("fopen");
+			perror(E "fopen() failed" R);
 			continue;
 		}
 		char buf[65536];
@@ -104,19 +107,10 @@ int fkill(int argc, char **argv) {
 		fprintf(stderr, "usage: %s <SIGNAL> <PID>\n", argv[0]);
 		return 1;
 	}
-	int sig = SIGTERM;
-	int pid_pos = 2;
-	if (strcmp(argv[1], "-s") == 0) {
-		if (argc < 4) {
-			fprintf(stderr, E "missing SIGNAL or PID\n" R);
-			return 1;
-		}
-		sig = atoi(argv[2]);
-		pid_pos = 3;
-	}
-	pid_t pid = atoi(argv[pid_pos]);
+	int sig = atoi(argv[1]);
+	pid_t pid = (pid_t)atoi(argv[2]);
 	if (kill(pid, sig) == -1) {
-		perror("kill");
+		perror(E "kill() failed" R);
 		return 1;
 	}
 	return 0;
@@ -137,7 +131,7 @@ int frm(int argc, char **argv) {
 	int r = 0;
 	for (int i = 1; i < argc; i++) {
 		if (unlink(argv[i]) == -1) {
-			perror("unlink");
+			perror(E "unlink() failed" R);
 			r = 1;
 		}
 	}
@@ -153,7 +147,7 @@ int fhead(int argc, char **argv) {
 	int lines = argc > 2 ? atoi(argv[2]) : 10;
 	FILE *f = fopen(argv[1], "r");
 	if (!f) {
-		perror("fopen");
+		perror(E "fopen() failed" R);
 		return 1;
 	}
 	char buf[65536];
@@ -168,11 +162,11 @@ void felf(const char *filename) {
 	unsigned char e_ident[64];
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror("error opening ELF file");
+		perror(E "error opening ELF file" R);
 		return;
 	}
 	if (fread(e_ident, 1, sizeof(e_ident), file) < sizeof(e_ident)) {
-		perror("error reading ELF header");
+		perror(E "error reading ELF header" R);
 		fclose(file);
 		return;
 	}
@@ -193,11 +187,11 @@ void felf(const char *filename) {
 	unsigned char e_machine[2] = {0, 0};
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror("error reopening ELF file");
+		perror(E "error reopening ELF file" R);
 		return;
 	}
 	if (fseek(file, 18, SEEK_SET) != 0 || fread(e_machine, 1, 2, file) < 2) {
-		perror("error reading ELF machine type");
+		perror(E "error reading ELF machine type" R);
 		fclose(file);
 		return;
 	}
@@ -234,16 +228,16 @@ void felf(const char *filename) {
 	printf("ABI version: " G "[%d]\n" R, e_ident[8]);
 }
 
-void ftype(const char *filename) {
+void fmagic(const char *filename) {
 	FILE *file;
 	unsigned char header[16];
 	file = fopen(filename, "rb");
 	if (!file) {
-		perror("error opening file");
+		perror(E "fopen() failed" R);
 		return;
 	}
 	if (fread(header, 1, sizeof(header), file) < 4) {
-		perror("error reading file");
+		perror(E "fread() failed" R);
 		fclose(file);
 		return;
 	}
@@ -295,7 +289,7 @@ int ffile(int argc, char **argv) {
 		fprintf(stderr, "usage: file <filename>\n");
 		return 1;
 	}
-	ftype(argv[1]);
+	fmagic(argv[1]);
 	return 0;
 }
 
@@ -309,7 +303,7 @@ int fgrep(int argc, char **argv) {
 	for (int i = 2; i < argc; i++) {
 		FILE *f = fopen(argv[i], "r");
 		if (!f) {
-			perror("fopen");
+			perror(E "fopen() failed" R);
 			r = 1;
 			continue;
 		}
@@ -334,7 +328,7 @@ int frmdir(int argc, char **argv) {
 	int r = 0;
 	for (int i = 1; i < argc; i++) {
 		if (rmdir(argv[i]) == -1) {
-			perror("rmdir");
+			perror(E "rmdir() failed" R);
 			r = 1;
 		}
 	}
@@ -346,7 +340,7 @@ int fa2x(int argc, char **argv) {
 	if (argc == 1) {
 		char z[65536];
 		if (!fgets(z, sizeof(z), stdin)) {
-			fprintf(stderr, "failed to read input\n");
+			fprintf(stderr, E "failed to read input\n" R);
 			return 1;
 		}
 		z[strcspn(z, "\n")] = 0;
@@ -368,31 +362,36 @@ int fa2x(int argc, char **argv) {
 
 // --- sync ---
 int ffsync(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
 	sync();
-	printf(G"filesystem cache committed to disk...\n"R);
+	printf(G "filesystem cache committed to disk...\n" R);
 	return 0;
 }
 
 //  --- true ---
 int ftrue(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
 	return 0;
 }
 
 // --- false ---
 int ffalse(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
 	return 1;
 }
+
+// --- tty ---
+int ftty(int argc, char **argv) {
+	char *tty_name = ttyname(STDIN_FILENO);
+	if (tty_name)
+		printf(G "%s\n" R, tty_name);
+	else
+		printf(E "not a tty...\n" R);
+	return 0;
+}
+
 
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false\n", argv[0]);
+		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
@@ -415,7 +414,8 @@ int main(int argc, char **argv) {
 		{"ascii2hex", fa2x},
 		{"sync", ffsync},
 		{"true", ftrue},
-		{"false", ffalse}
+		{"false", ffalse},
+		{"tty", ftty}
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
@@ -424,6 +424,6 @@ int main(int argc, char **argv) {
 			return a[i].f(argc - 1, argv + 1);
 		}
 	}
-	fprintf(stderr, "unknown command: %s...\n", in);
+	fprintf(stderr, E "unknown command: %s...\n" R, in);
 	return 1;
 }
