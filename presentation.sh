@@ -1,23 +1,23 @@
 #!/bin/sh
 
-PROJECT_TITLE="toolbox"
+TITLE="Toolbox"
 NAME="Mr. Ivan Gaydardzhiev"
-GITHUB_USERNAME="gaidardzhiev"
-EDX_USERNAME="gaidardzhiev"
+GITHUB="gaidardzhiev"
+EDX="gaidardzhiev"
 CITY="Samos"
 COUNTRY="Greece"
 DATE=$(date)
-TYPING_SPEED=20
+SPEED=20
 
 {
-	echo "Project: $PROJECT_TITLE"
+	echo "Project: $TITLE"
 	echo "Presenter: $NAME"
-	echo "GitHub: https://github.com/$GITHUB_USERNAME"
-	echo "edX: https://edx.org/user/$EDX_USERNAME"
+	echo "GitHub: https://github.com/$GITHUB"
+	echo "edX: https://edx.org/user/$EDX"
 	echo "Location: $CITY, $COUNTRY"
 	echo "Date: $DATE"
 	echo
-} | pv -qL $TYPING_SPEED
+} | pv -qL $SPEED
 
 {
 	echo "Welcome to the presentation of my project!"
@@ -29,7 +29,7 @@ TYPING_SPEED=20
 	echo "You can find the full source code on my GitHub repository."
 	echo
 	echo "Thank you for watching this presentation."
-	echo "Feel free to reach out via GitHub or edX for questions or collaboration."
+	echo "Feel free to reach out via GitHub for questions or collaboration."
 	echo
 	echo "Goodbye!"
-} | pv -qL $TYPING_SPEED
+} | pv -qL $SPEED
