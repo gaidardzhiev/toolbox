@@ -63,6 +63,10 @@ How It Works?
 
  ./toolbox sync
 
+ ./toolbox true
+ 
+ ./toolbox false
+
 
 
 Suported commands:
@@ -98,3 +102,5 @@ Suported commands:
  ascii2hex - convert ASCII characters to their hexadecimal representation
 
  sync - commit filesystem caches to disk
+
+ true - do nothing successfully
