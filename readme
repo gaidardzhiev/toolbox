@@ -104,3 +104,5 @@ Suported commands:
  sync - commit filesystem caches to disk
 
  true - do nothing successfully
+
+ false - do nothing unsuccessfully
