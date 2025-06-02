@@ -432,24 +432,11 @@ int ffsync(int argc, char **argv) {
 	return 0;
 }
 
-//  --- true ---
-int ftrue(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
-	return 0;
-}
-
-// --- false ---
-int ffalse(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
-	return 1;
-}
 
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync | true | false\n", argv[0]);
+		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
@@ -471,9 +458,7 @@ int main(int argc, char **argv) {
 		{"grep", fgrep},
 		{"rmdir", frmdir},
 		{"ascii2hex", fa2x},
-		{"sync", ffsync},
-		{"true", ftrue},
-		{"false", ffalse}
+		{"sync", ffsync}
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
