@@ -51,8 +51,6 @@ How It Works?
 
  ./toolbox head toolbox.c
 
- ./toolbox diff toolbox.c toolbox.1
-
  ./toolbox file toolbox
 
  ./toolbox grep "grep" toolbox.c
@@ -88,8 +86,6 @@ Suported commands:
  rm - remove files
 
  head - output the first part of a file
-
- diff - compare files line by line
 
  file - determine file type by the magic bytes signature
 

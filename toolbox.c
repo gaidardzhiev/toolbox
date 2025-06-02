@@ -162,63 +162,6 @@ int fhead(int argc, char **argv) {
 	return 0;
 }
 
-// --- diff ---
-int fdiff(int argc, char **argv) {
-	if (argc < 3) {
-		fprintf(stderr, "usage: %s <file1> <file2>\n", argv[0]);
-		return 1;
-	}
-	FILE *f1 = fopen(argv[1], "r");
-	if (!f1) {
-		perror("fopen file1");
-		return 1;
-	}
-	FILE *f2 = fopen(argv[2], "r");
-	if (!f2) {
-		perror("fopen file2");
-		fclose(f1);
-		return 1;
-	}
-	char line1[65536];
-	char line2[65536];
-	int line_num = 1;
-	int diff_found = 0;
-	while (1) {
-		char *res1 = fgets(line1, sizeof(line1), f1);
-		char *res2 = fgets(line2, sizeof(line2), f2);
-		if (!res1 && !res2) {
-			break;
-		}
-		if (!res1 || !res2) {
-			diff_found = 1;
-			if (res1) {
-				printf("only in %s at line %d:\n> %s", argv[1], line_num, line1);
-				while (fgets(line1, sizeof(line1), f1)) {
-					printf("> %s", line1);
-					line_num++;
-				}
-			} else {
-				printf("only in %s at line %d:\n< %s", argv[2], line_num, line2);
-				while (fgets(line2, sizeof(line2), f2)) {
-					printf("< %s", line2);
-					line_num++;
-				}
-			}
-			break;
-		}
-		if (strcmp(line1, line2) != 0) {
-			diff_found = 1;
-			printf("difference at line %d:\n", line_num);
-			printf("< %s", line1);
-			printf("> %s", line2);
-		}
-		line_num++;
-	}
-	fclose(f1);
-	fclose(f2);
-	return diff_found;
-}
-
 // --- file ---
 void felf(const char *filename) {
 	FILE *file;
@@ -449,7 +392,7 @@ int ffalse(int argc, char **argv) {
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | diff | file | grep | rmdir | ascii2hex | sync | true | false\n", argv[0]);
+		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
@@ -466,7 +409,6 @@ int main(int argc, char **argv) {
 		{"clear", fclear},
 		{"rm", frm},
 		{"head", fhead},
-		{"diff", fdiff},
 		{"file", ffile},
 		{"grep", fgrep},
 		{"rmdir", frmdir},
