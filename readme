@@ -47,13 +47,13 @@ How It Works?
 
  ./toolbox clear
 
- /usr/bin/touch /tmp/file && ./toolbox rm /tmp/file
+ ./toolbox rm /tmp/cpuinfo
 
- ./toolbox head toolbox.c
+ ./toolbox head toolbox.c 20
 
  ./toolbox file toolbox
 
- ./toolbox grep "grep" toolbox.c
+ ./toolbox grep "main()" toolbox.c
 
  ./toolbox rmdir /tmp/test_dir
 
@@ -102,3 +102,5 @@ Suported commands:
  true - do nothing successfully
 
  false - do nothing unsuccessfully
+ 
+ tty - print the file name of the terminal connected to stdin
