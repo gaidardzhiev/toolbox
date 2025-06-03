@@ -3,7 +3,7 @@
 TITLE="Toolbox"
 NAME="Mr. Ivan Gaydardzhiev"
 GITHUB="gaidardzhiev"
-EDX="gaidardzhiev"
+EDX="Gaidardzhiev"
 CITY="Samos"
 COUNTRY="Greece"
 DATE=$(date)
