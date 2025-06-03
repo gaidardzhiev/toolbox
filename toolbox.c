@@ -33,7 +33,7 @@ int fls(int argc, char **argv) {
 // --- cp ---
 int fcp(int argc, char **argv) {
 	if (argc < 3) {
-		fprintf(stderr, "usage: %s <src> <dst>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <src> <dst>\n", argv[0]);
 		return 1;
 	}
 	FILE *fs = fopen(argv[1], "rb");
@@ -65,7 +65,7 @@ int fcp(int argc, char **argv) {
 // --- mkdir ---
 int fmkdir(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <dir>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
 		return 1;
 	}
 	if (mkdir(argv[1], 0777) == -1) {
@@ -104,7 +104,7 @@ int fecho(int argc, char **argv) {
 // --- kill ---
 int fkill(int argc, char **argv) {
 	if (argc < 3) {
-		fprintf(stderr, "usage: %s <SIGNAL> <PID>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <SIGNAL> <PID>\n", argv[0]);
 		return 1;
 	}
 	int sig = atoi(argv[1]);
@@ -125,7 +125,7 @@ int fclear(int argc, char **argv) {
 // --- rm ---
 int frm(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <file>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <file>\n", argv[0]);
 		return 1;
 	}
 	int r = 0;
@@ -141,7 +141,7 @@ int frm(int argc, char **argv) {
 // --- head ---
 int fhead(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <file> <lines>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <file> <lines>\n", argv[0]);
 		return 1;
 	}
 	int lines = argc > 2 ? atoi(argv[2]) : 10;
@@ -286,7 +286,7 @@ void fmagic(const char *filename) {
 
 int ffile(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: file <filename>\n");
+		fprintf(stderr, "usage: toolbox file <filename>\n");
 		return 1;
 	}
 	fmagic(argv[1]);
@@ -296,7 +296,7 @@ int ffile(int argc, char **argv) {
 // --- grep ---
 int fgrep(int argc, char **argv) {
 	if (argc < 3) {
-		fprintf(stderr, "usage: %s <pattern> <file>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <pattern> <file>\n", argv[0]);
 		return 1;
 	}
 	int r = 0;
@@ -322,7 +322,7 @@ int fgrep(int argc, char **argv) {
 // --- rmdir ---
 int frmdir(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <dir>\n", argv[0]);
+		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
 		return 1;
 	}
 	int r = 0;
@@ -337,28 +337,18 @@ int frmdir(int argc, char **argv) {
 
 // --- ascii2hex ---
 int fa2x(int argc, char **argv) {
-	if (argc == 1) {
-		char z[65536];
-		if (!fgets(z, sizeof(z), stdin)) {
-			fprintf(stderr,Z"failed to read input\n"Y);
-			return 1;
-		}
-		z[strcspn(z, "\n")] = 0;
-		for (int i = 0; i < (int)strlen(z); i++) {
-			printf("\\x%02X", (unsigned char)z[i]);
-		}
-		printf("\n");
-	} else {
-		for (int argi = 1; argi < argc; argi++) {
-			const char *z = argv[argi];
-			for (int i = 0; i < (int)strlen(z); i++) {
-				printf("\\x%02X", (unsigned char)z[i]);
-			}
-			printf("\n");
-		}
+	if (argc < 2) {
+		fprintf(stderr, "usage: toolbox %s <text>\n", argv[0]);
+		return 1;
 	}
+	const char *z = argv[1];
+	for (int i = 0; i < (int)strlen(z); i++) {
+		printf("\\x%02X", (unsigned char)z[i]);
+	}
+	printf("\n");
 	return 0;
 }
+
 
 // --- sync ---
 int ffsync(int argc, char **argv) {
