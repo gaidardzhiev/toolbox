@@ -34,7 +34,7 @@ Beyond standard \*nix commands, Toolbox includes useful custom tools such as `as
 
 To build Toolbox from source, follow these steps:
 
-1. Run `./build_musl_libc.sh` if you want to build the musl libc statically.
+1. Run `./build_musl_libc.sh` if you want to build the statically linked musl libc.
 2. Run `./build_toolchain.sh` if you want to build the statically linked binutils, GCC, and glibc toolchain.
 3. Run `make` to compile `toolbox.c` into the final executable.
 
