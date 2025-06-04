@@ -126,4 +126,4 @@ You can also use Toolbox commands in combination with other shell utilities:
 
 ## Summary
 
-Toolbox is an efficient, single-binary \*nix command toolkit designed for simplicity, portability, and ease of use. Its static linking and minimalist design make it especially suitable for embedded systems, containers, and environments where resources are limited or where deployment simplicity is crucial. By combining many common utilities into one executable, Toolbox streamlines system maintenance and scripting tasks while maintaining compatibility with standard \*nix behaviors.
+Toolbox is an efficient, single binary \*nix command toolkit designed for simplicity, portability, and ease of use. Its static linking and minimalist design make it especially suitable for embedded systems, containers, and environments where resources are limited or where deployment simplicity is crucial. By combining many common utilities into one executable, Toolbox streamlines system maintenance and scripting tasks while maintaining compatibility with standard \*nix behaviors.
