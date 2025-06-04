@@ -35,7 +35,8 @@ Beyond standard Unix commands, Toolbox includes useful custom tools such as `asc
 To build Toolbox from source, follow these steps:
 
 ```
-./toolchain_build.sh
+./build_toolchain.sh
+./musl_libc_build.sh
 make
 make install
 man toolbox
