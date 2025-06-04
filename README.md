@@ -34,11 +34,12 @@ Beyond standard Unix commands, Toolbox includes useful custom tools such as `asc
 
 To build Toolbox from source, follow these steps:
 
+```
 ./toolchain_build.sh
 make
 make install
 man toolbox
-
+```
 
 This process compiles the statically linked binary and installs it along with its manual page.
 
@@ -46,6 +47,7 @@ This process compiles the statically linked binary and installs it along with it
 
 Toolbox operates as a single statically linked executable that determines which command to run based on the first argument passed to it. For example:
 
+```
 ./toolbox ls /proc
 ./toolbox cp /proc/cpuinfo /tmp
 ./toolbox mkdir /tmp/testdir
@@ -63,11 +65,13 @@ Toolbox operates as a single statically linked executable that determines which 
 ./toolbox false
 ./toolbox tty
 ./toolbox kmsg
+```
 
 You can also use Toolbox commands in combination with other shell utilities:
 
+```
 /usr/bin/sleep 1024 & ps aux | grep "[s]leep 1024" | awk '{print $2}' | xargs -I{} ./toolbox kill 9 {}
-
+```
 
 ## Supported Commands
 
