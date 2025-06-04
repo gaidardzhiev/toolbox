@@ -28,7 +28,7 @@ Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy 
 
 ### Custom Utilities
 
-Beyond standard \*nix commands, Toolbox includes useful custom tools such as \*ascii2hex for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
+Beyond standard \*nix commands, Toolbox includes useful custom tools such as `ascii2hex` for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
 
 ## How to Build Toolbox
 
