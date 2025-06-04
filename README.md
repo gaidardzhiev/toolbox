@@ -82,35 +82,35 @@ You can also use Toolbox commands in combination with other shell utilities:
 
 ## Supported Commands
 
-- `ls` - list directory contents  
-- `cp` - copy files  
-- `mkdir` - create a directory  
-- `cat` - concatenate files and print on stdout  
-- `echo` - print arguments  
-- `kill` - terminate a process  
-- `clear` - clear the terminal screen  
-- `rm` - remove files  
-- `head` - output the first part of a file  
-- `file` - determine file type by magic bytes signature  
-- `grep` - global regular expression print  
-- `rmdir` - remove directory  
-- `sync` - commit filesystem caches to disk  
-- `ascii2hex` - convert ASCII characters to their hexadecimal representation  
-- `true` - do nothing successfully  
-- `false` - do nothing unsuccessfully  
-- `tty` - print the file name of the terminal connected to stdin  
-- `kmsg` - print messages from the kernel ring buffer  
+- `./toolbox ls` - list directory contents  
+- `./toolbox cp` - copy files  
+- `./toolbox mkdir` - create a directory  
+- `./toolbox cat` - concatenate files and print on stdout  
+- `./toolbox echo` - print arguments  
+- `./toolbox kill` - terminate a process  
+- `./toolbox clear` - clear the terminal screen  
+- `./toolbox rm` - remove files  
+- `./toolbox head` - output the first part of a file  
+- `./toolbox file` - determine file type by magic bytes signature  
+- `./toolbox grep` - global regular expression print  
+- `./toolbox rmdir` - remove directory  
+- `./toolbox sync` - commit filesystem caches to disk  
+- `./toolbox ascii2hex` - convert ASCII characters to their hexadecimal representation  
+- `./toolbox true` - do nothing successfully  
+- `./toolbox false` - do nothing unsuccessfully  
+- `./toolbox tty` - print the file name of the terminal connected to stdin  
+- `./toolbox kmsg` - print messages from the kernel ring buffer  
 
 ## Files Description
 
 - **build_musl_libc.sh**  
-  POSIX shell script to build the musl libc library statically. This script compiles musl libc to be used as the C standard library for the toolchain.
+  POSIX shell script that builds the musl libc library statically. This script compiles musl libc to be used as the C standard library for the toolchain.
 
 - **build_toolchain.sh**  
-  POSIX shell script to build a complete statically linked toolchain including binutils, GCC, and glibc. It orchestrates the compilation and linking of these components to produce a standalone cross-compiler environment.
+  POSIX shell script that builds a complete statically linked toolchain including binutils, GCC, and glibc.
 
 - **Makefile**  
-  Build instructions for the main program. You can select which toolchain to use by specifying the CC variable when running make, for example, make CC=musl-gcc to use the musl toolchain or make CC=gcc for the glibc toolchain.
+  Build instructions for the main program. You can select which toolchain to use by specifying the CC variable when running make, for example, 'make CC=musl-gcc' to use the musl toolchain or 'make CC=gcc' for the glibc toolchain.
 
 - **toolbox.c**  
   The main C source file containing the program logic. This is the primary application that is compiled and linked using the custom-built toolchain.
