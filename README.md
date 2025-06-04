@@ -110,7 +110,7 @@ You can also use Toolbox commands in combination with other shell utilities:
   POSIX shell script to build a complete statically linked toolchain including binutils, GCC, and glibc. It orchestrates the compilation and linking of these components to produce a standalone cross-compiler environment.
 
 - **Makefile**  
-  Defines build rules for the main program and possibly other components. It automates compilation and linking steps using the statically built toolchain.
+  Build rules for the main program. You can select which toolchain to use by specifying the CC variable when running make, for example, make CC=musl-gcc to use the musl toolchain or make CC=gcc for the default glibc toolchain.
 
 - **toolbox.c**  
   The main C source file containing the program logic. This is the primary application that is compiled and linked using the custom-built toolchain.
