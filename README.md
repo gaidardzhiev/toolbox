@@ -34,6 +34,12 @@ Beyond standard Unix commands, Toolbox includes useful custom tools such as `asc
 
 To build Toolbox from source, follow these steps:
 
+1. Run `build_musl_libc.sh` to build the musl libc statically.
+2. Run `build_toolchain.sh` to build the statically linked binutils, GCC, and musl libc toolchain.
+3. Use the `Makefile` to compile `toolbox.c` into the final executable using the custom static toolchain.
+
+This setup ensures that all binaries are statically linked, providing portability and independence from the host system's libraries.
+
 ```
 ./build_toolchain.sh
 ./musl_libc_build.sh
@@ -94,6 +100,29 @@ You can also use Toolbox commands in combination with other shell utilities:
 - `false` - do nothing unsuccessfully  
 - `tty` - print the file name of the terminal connected to stdin  
 - `kmsg` - print messages from the kernel ring buffer  
+
+## Files Description
+
+- **build_musl_libc.sh**  
+  POSIX shell script to build the musl libc library statically. This script compiles musl libc to be used as the C standard library for the toolchain.
+
+- **build_toolchain.sh**  
+  POSIX shell script to build a complete statically linked toolchain including binutils, GCC, and glibc. It orchestrates the compilation and linking of these components to produce a standalone cross-compiler environment.
+
+- **Makefile**  
+  Defines build rules for the main program and possibly other components. It automates compilation and linking steps using the statically built toolchain.
+
+- **toolbox.c**  
+  The main C source file containing the program logic. This is the primary application that is compiled and linked using the custom-built toolchain.
+
+- **toolbox.1**  
+  The man page for the main program, providing usage instructions and documentation.
+
+- **LICENSE**  
+  The license file governing the use and distribution of the project.
+
+- **README.md**  
+  This file, providing an overview and instructions for building and using the project.
 
 ## Summary
 
