@@ -377,11 +377,26 @@ int ftty(int argc, char **argv) {
 	return 0;
 }
 
+// --- kmsg ---
+int fkmsg(int argc, char **argv) {
+	char buf[65536];
+	FILE *fp;
+	fp = fopen("/proc/kmsg", "r");
+	if (fp == NULL) {
+		perror(Z"fopen() failed"Y);
+		return 1;
+	}
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		printf("%s", buf);
+	}
+	fclose(fp);
+	return 0;
+}
 
 // --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty\n", argv[0]);
+		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
@@ -405,7 +420,8 @@ int main(int argc, char **argv) {
 		{"sync", ffsync},
 		{"true", ftrue},
 		{"false", ffalse},
-		{"tty", ftty}
+		{"tty", ftty},
+		{"kmsg", fkmsg}
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
