@@ -7,7 +7,8 @@ fgcc() {
 	PREFIX="/usr/local/gcc-static"
 	TARGET="x86_64-pc-linux-gnu"
 	SRCDIR="/usr/src"
-	CPU="-j$(nproc)"
+	GETNUMCPUS=`grep -c '^processor' /proc/cpuinfo`
+	JOBS='-j '$GETNUMCPUS''
 	printf "do you want to build %s binutils, gcc and glibc form source? (y/n)\n" "$TARGET"
 	read Z
 	case "$Z" in
@@ -27,7 +28,7 @@ fgcc() {
 				--enable-static \
 				--enable-shared=no \
 				--target="$TARGET" || return 4
-			make "$CPU" && make install || return 5
+			make "$JOBS" && make install || return 5
 			cd "$SRCDIR" || return 6
 			wget -c https://ftp.gnu.org/gnu/gcc/gcc-"$GCC_VER"/gcc-"$GCC_VER".tar.gz || return 7
 			tar xfv gcc-"$GCC_VER".tar.gz
@@ -51,7 +52,7 @@ fgcc() {
 				--disable-libgomp \
 				--disable-libatomic \
 				--disable-libstdcxx-pch || return 12
-			make "$CPU" && make install || return 13
+			make "$JOBS" && make install || return 13
 			cd "$SRCDIR" || return 14
 			wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.1.tar.xz || return 15
 			tar xfv linux-6.5.1.tar.xz
@@ -73,7 +74,7 @@ fgcc() {
 				--disable-multilib \
 				--disable-profile \
 				--disable-werror || return 21
-			make "$CPU" || return 22
+			make "$JOBS" || return 22
 			make install || return 23
 			cd "$SRCDIR" || return 24
 			cd gcc-build || return 25
@@ -85,7 +86,7 @@ fgcc() {
 					--enable-static \
 				--disable-shared \
 				--with-system-zlib || return 26
-			make "$CPU" || return 27
+			make "$JOBS" || return 27
 			make install || return 28
 			"$PREFIX"/bin/gcc --version && return 0 || return 29
 			;;

@@ -52,7 +52,7 @@ EOF
 		rm hello.c a.out
 		return 0
 	else
-		return 16
+		return 32
 	fi
 }
 

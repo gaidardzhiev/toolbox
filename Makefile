@@ -1,4 +1,4 @@
-CC=gcc
+CC=musl-gcc
 BINS=toolbox
 all: $(BINS)
 
