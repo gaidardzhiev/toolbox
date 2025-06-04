@@ -36,7 +36,7 @@ To build Toolbox from source, follow these steps:
 
 1. Run `build_musl_libc.sh` to build the musl libc statically.
 2. Run `build_toolchain.sh` to build the statically linked binutils, GCC, and glibc toolchain.
-3. Use the `Makefile` to compile `toolbox.c` into the final executable using the custom static toolchain.
+3. Use the `Makefile` to compile `toolbox.c` into the final executable.
 
 This setup ensures that all binaries are statically linked, providing portability and independence from the host system's libraries.
 
