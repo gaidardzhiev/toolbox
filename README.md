@@ -48,7 +48,7 @@ make install
 man toolbox
 ```
 
-This process compiles the statically linked binary and installs it along with its manual page.
+This process compiles the statically linked binary and installs it along with its man page.
 
 ## How It Works
 
