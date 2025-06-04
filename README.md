@@ -2,9 +2,9 @@
 
 ## What is Toolbox?
 
-Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit providing essential Unix commands, all accessible through one binary. This approach simplifies deployment and usage, especially in resource-constrained or embedded environments.
+Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit providing essential `*nix` commands, all accessible through one binary. This approach simplifies deployment and usage, especially in resource-constrained or embedded environments.
 
-Similar to BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard utilities typically found in GNU coreutils, util-linux, and other common Unix toolsets. While Toolbox commands may not include every advanced feature of their full-fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
+Similar to BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard utilities typically found in GNU coreutils, util-linux, and other common `*nix` toolsets. While Toolbox commands may not include every advanced feature of their full-fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
 
 By consolidating multiple utilities into one executable, Toolbox reduces disk space usage, simplifies updates, and eases distribution, making it highly practical for minimal Linux setups, containers, rescue environments, and embedded systems.
 
@@ -28,7 +28,7 @@ Toolbox uses a clean and maintainable command dispatch mechanism, allowing easy 
 
 ### Custom Utilities
 
-Beyond standard Unix commands, Toolbox includes useful custom tools such as `ascii2hex` for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
+Beyond standard `*nix` commands, Toolbox includes useful custom tools such as `ascii2hex` for converting ASCII strings to hexadecimal notation, enhancing its utility in scripting and debugging scenarios.
 
 ## How to Build Toolbox
 
@@ -126,4 +126,4 @@ You can also use Toolbox commands in combination with other shell utilities:
 
 ## Summary
 
-Toolbox is an efficient, single-binary Unix command toolkit designed for simplicity, portability, and ease of use. Its static linking and minimalist design make it especially suitable for embedded systems, containers, and environments where resources are limited or where deployment simplicity is crucial. By combining many common utilities into one executable, Toolbox streamlines system maintenance and scripting tasks while maintaining compatibility with standard Unix behaviors.
+Toolbox is an efficient, single-binary `*nix` command toolkit designed for simplicity, portability, and ease of use. Its static linking and minimalist design make it especially suitable for embedded systems, containers, and environments where resources are limited or where deployment simplicity is crucial. By combining many common utilities into one executable, Toolbox streamlines system maintenance and scripting tasks while maintaining compatibility with standard `*nix` behaviors.
