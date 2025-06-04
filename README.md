@@ -97,7 +97,3 @@ You can also use Toolbox commands in combination with other shell utilities:
 ## Summary
 
 Toolbox is an efficient, single-binary Unix command toolkit designed for simplicity, portability, and ease of use. Its static linking and minimalist design make it especially suitable for embedded systems, containers, and environments where resources are limited or where deployment simplicity is crucial. By combining many common utilities into one executable, Toolbox streamlines system maintenance and scripting tasks while maintaining compatibility with standard Unix behaviors.
-
----
-
-This README provides a comprehensive overview of Toolbox, its purpose, advantages, usage, and supported commands, making it easier for developers and system administrators to understand and adopt this useful toolkit.
