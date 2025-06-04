@@ -10,6 +10,8 @@ export DIR="/home/src/"
 
 [ -d "$PREFIX" ] && { printf "$PREFIX exists...\n"; exit 0; }
 
+[ ! -d "$DIR" ] && mkdir -p "$DIR"
+
 fget() {
 	if cd $DIR; then
 		wget https://musl.libc.org/releases/$MUSL.tar.gz
