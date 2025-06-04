@@ -65,6 +65,10 @@ How It Works?
  
  ./toolbox false
 
+ ./toolbox tty
+
+ ./toolbox kmsg
+
 
 
 Suported commands:
@@ -104,3 +108,5 @@ Suported commands:
  false - do nothing unsuccessfully
  
  tty - print the file name of the terminal connected to stdin
+
+ kmsg - print messages from the kernel ring buffer
