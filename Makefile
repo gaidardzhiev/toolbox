@@ -1,12 +1,12 @@
 CC=musl-gcc
-BINS=toolbox
-all: $(BINS)
+BIN=toolbox
+all: $(BIN)
 
-$(BINS): %: %.c
+$(BIN): %: %.c
 	$(CC) -o $@ $< -static
 
 clean:
-	rm $(BINS)
+	rm $(BIN)
 
 install:
 	cp toolbox /usr/bin/toolbox
