@@ -11,13 +11,12 @@
 #include <grp.h>
 #include <ctype.h>
 #include <elf.h>
-#include <sys/wait.h>
 
 #define X "\x1b[92m"
 #define Y "\x1b[0m"
 #define Z "\x1b[91m"
 
-// --- ls --- //
+// --- ls ---
 int fls(int argc, char **argv) {
 	const char *dir = argc > 1 ? argv[1] : ".";
 	DIR *dp = opendir(dir);
@@ -31,7 +30,7 @@ int fls(int argc, char **argv) {
 	return 0;
 }
 
-// --- cp --- //
+// --- cp ---
 int fcp(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <src> <dst>\n", argv[0]);
@@ -63,7 +62,7 @@ int fcp(int argc, char **argv) {
 	return 0;
 }
 
-// --- mkdir --- //
+// --- mkdir ---
 int fmkdir(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
@@ -76,7 +75,7 @@ int fmkdir(int argc, char **argv) {
 	return 0;
 }
 
-// --- cat --- //
+// --- cat ---
 int fcat(int argc, char **argv) {
 	if (argc == 1) {
 		char buf[65536];
@@ -96,13 +95,13 @@ int fcat(int argc, char **argv) {
 	return 0;
 }
 
-// --- echo --- //
+// --- echo ---
 int fecho(int argc, char **argv) {
 	for (int i = 1; i < argc; i++) printf("%s%c", argv[i], i < argc-1 ? ' ' : '\n');
 	return 0;
 }
 
-// --- kill --- //
+// --- kill ---
 int fkill(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <SIGNAL> <PID>\n", argv[0]);
@@ -117,13 +116,13 @@ int fkill(int argc, char **argv) {
 	return 0;
 }
 
-// --- clear --- //
+// --- clear ---
 int fclear(int argc, char **argv) {
 	printf("\033c");
 	return 0;
 }
 
-// --- rm --- //
+// --- rm ---
 int frm(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <file>\n", argv[0]);
@@ -139,7 +138,7 @@ int frm(int argc, char **argv) {
 	return r;
 }
 
-// --- head --- //
+// --- head ---
 int fhead(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <file> <lines>\n", argv[0]);
@@ -157,7 +156,7 @@ int fhead(int argc, char **argv) {
 	return 0;
 }
 
-// --- file --- //
+// --- file ---
 void felf(const char *filename) {
 	FILE *file;
 	unsigned char e_ident[64];
@@ -294,7 +293,7 @@ int ffile(int argc, char **argv) {
 	return 0;
 }
 
-// --- grep --- //
+// --- grep ---
 int fgrep(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <pattern> <file>\n", argv[0]);
@@ -320,7 +319,7 @@ int fgrep(int argc, char **argv) {
 	return r;
 }
 
-// --- rmdir --- //
+// --- rmdir ---
 int frmdir(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
@@ -336,7 +335,7 @@ int frmdir(int argc, char **argv) {
 	return r;
 }
 
-// --- ascii2hex --- //
+// --- ascii2hex ---
 int fa2x(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <text>\n", argv[0]);
@@ -351,24 +350,24 @@ int fa2x(int argc, char **argv) {
 }
 
 
-// --- sync --- //
+// --- sync ---
 int ffsync(int argc, char **argv) {
 	sync();
 	printf(X"filesystem cache committed to disk...\n"Y);
 	return 0;
 }
 
-//  --- true --- //
+//  --- true ---
 int ftrue(int argc, char **argv) {
 	return 0;
 }
 
-// --- false --- //
+// --- false ---
 int ffalse(int argc, char **argv) {
 	return 1;
 }
 
-// --- tty --- //
+// --- tty ---
 int ftty(int argc, char **argv) {
 	char *tty_name = ttyname(STDIN_FILENO);
 	if (tty_name)
@@ -378,7 +377,7 @@ int ftty(int argc, char **argv) {
 	return 0;
 }
 
-// --- kmsg --- //
+// --- kmsg ---
 int fkmsg(int argc, char **argv) {
 	char buf[65536];
 	FILE *fp;
@@ -394,71 +393,7 @@ int fkmsg(int argc, char **argv) {
 	return 0;
 }
 
-// --- shell --- //
-int fsh(int argc, char **argv) {
-	const int ARGS = 64;
-	char *in = NULL;
-	size_t cap = 0;
-	ssize_t len;
-	while (1) {
-		printf("shell@%s ", getpwuid(getuid())->pw_name);
-		fflush(stdout);
-		len = getline(&in, &cap, stdin);
-		if (len == -1) {
-			printf("\n");
-			break;
-		}
-		if (len > 0 && in[len - 1] == '\n') {
-			in[len - 1] = '\0';
-		}
-		if (in[0] == '\0') {
-			continue;
-		}
-		char *args[ARGS];
-		int n = 0;
-		char *tok = strtok(in, " \t");
-		while (tok != NULL && n < ARGS - 1) {
-			args[n++] = tok;
-			tok = strtok(NULL, " \t");
-		}
-		args[n] = NULL;
-		if (strcmp(args[0], "exit") == 0) {
-			break;
-		}
-		if (strcmp(args[0], "cd") == 0) {
-			char *dir = (n > 1) ? args[1] : getenv("HOME");
-			if (dir == NULL) {
-				fprintf(stderr, Z"cd: HOME not set\n"Y);
-			} else if (chdir(dir) != 0) {
-				perror(Z"cd failed"Y);
-			}
-			continue;
-		}
-		pid_t pid = fork();
-		if (pid < 0) {
-			perror(Z"fork() failed"Y);
-			free(in);
-			return 1;
-		} else if (pid == 0) {
-			execvp(args[0], args);
-			perror(Z"execvp() failed"Y);
-			return 1;
-		} else {
-			int status;
-			do {
-				if (waitpid(pid, &status, 0) == -1) {
-					perror(Z"waitpid() failed"Y);
-					free(in);
-					return 1;
-				}
-			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		}
-	}
-	free(in);
-	return 0;
-}
-
-// --- main --- //
+// --- main ---
 int main(int argc, char **argv) {
 	if (argc < 2) {
 		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg\n", argv[0]);
@@ -486,8 +421,7 @@ int main(int argc, char **argv) {
 		{"true", ftrue},
 		{"false", ffalse},
 		{"tty", ftty},
-		{"kmsg", fkmsg},
-		{"shell", fsh}
+		{"kmsg", fkmsg}
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
