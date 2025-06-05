@@ -48,9 +48,10 @@ Toolbox determines which command to run based on the first argument:
 To build and install toolbox, run the following commands:
 
 .EX
- git clone <repo>
- cd <repo>
- ./toolchain_build.sh
+ git clone https://github.com/gaidardzhiev/toolbox
+ cd toolbox
+ ./build_toolchain.sh
+ ./build_musl_libc.sh
  make
  make install
  man toolbox
