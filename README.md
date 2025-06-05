@@ -71,6 +71,7 @@ Toolbox operates as a single statically linked executable that determines which 
 ./toolbox false
 ./toolbox tty
 ./toolbox kmsg
+./toolbox shell
 ```
 
 You can also use Toolbox commands in combination with other shell utilities:
@@ -99,6 +100,7 @@ You can also use Toolbox commands in combination with other shell utilities:
 - `./toolbox false` - do nothing unsuccessfully  
 - `./toolbox tty` - print the file name of the terminal connected to stdin  
 - `./toolbox kmsg` - print messages from the kernel ring buffer  
+- `./toolbox shell` - simple shell with a built in cd command
 
 ## Files Description
 
