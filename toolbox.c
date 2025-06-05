@@ -421,7 +421,7 @@ int main(int argc, char **argv) {
 		{"true", ftrue},
 		{"false", ffalse},
 		{"tty", ftty},
-		{"kmsg", fkmsg}
+		{"kmsg", fkmsg},
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
