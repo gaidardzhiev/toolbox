@@ -1,8 +1,8 @@
 #!/bin/sh
 
 export PREFIX="/opt/musl"
-export EXEC="$PREFIX/bin"
-export LIB="$PREFIX/lib"
+export BIN="$PREFIX"
+export LIB="$PREFIX"
 export GETNUMCPUS=`grep -c '^processor' /proc/cpuinfo`
 export JOBS='-j '$GETNUMCPUS''
 export MUSL="musl-1.2.5"
@@ -27,12 +27,12 @@ fget() {
 fbuild() {
 	if ./configure \
 		--prefix=$PREFIX \
-		--exec-prefix=$EXEC \
+		--exec-prefix=$BIN \
 		--syslibdir=$LIB \
 		--disable-shared; then
 		make
 		make install
-		cp $EXEC/bin/musl-gcc /usr/bin/
+		cp $BIN/bin/musl-gcc /usr/bin/
 		return 0
 	else
 		return 16
