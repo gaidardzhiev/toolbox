@@ -114,7 +114,7 @@ You can also use Toolbox commands in combination with other shell utilities:
   Build instructions for the main program. You can select which toolchain to use by specifying the CC variable when running make, for example, 'make CC=musl-gcc' to use the musl toolchain or 'make CC=gcc' for the glibc toolchain.
 
 - **toolbox.c**  
-  The main C source file containing the program logic. This is the primary application that is compiled and linked using the custom-built toolchain.
+  The main C source file containing the program logic. This is the primary application that is compiled using the custom built toolchain.
 
 - **toolbox.1**  
   The man page for the main program, providing usage instructions and documentation.
