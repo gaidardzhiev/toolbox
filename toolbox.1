@@ -42,6 +42,23 @@ Toolbox determines which command to run based on the first argument:
 
 .EX
  ./toolbox ls /proc
+ ./toolbox cp /proc/cpuinfo /tmp
+ ./toolbox mkdir /tmp/testdir
+ ./toolbox cat /proc/cpuinfo
+ ./toolbox echo "Hack the World"
+ ./toolbox clear
+ ./toolbox rm /tmp/cpuinfo
+ ./toolbox head toolbox.c 20
+ ./toolbox file toolbox
+ ./toolbox grep "main()" toolbox.c
+ ./toolbox rmdir /tmp/testdir
+ ./toolbox ascii2hex
+ ./toolbox sync
+ ./toolbox true
+ ./toolbox false
+ ./toolbox tty
+ ./toolbox kmsg
+ ./toolbox shell
 .EE
 
 .SH BUILD AND INSTALLATION
@@ -60,8 +77,8 @@ To build and install toolbox, run the following commands:
 .SH COMMANDS
  ls | cp | mkdir | cat | echo | kill | clear| rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg | shell
 
-.SH AUTHOR
-Written and maintained by Ivan Gaydardzhiev.
+.SH AUTHORS
+Written and maintained by Mr. Ivan Gaydardzhiev.
 
 .SH COPYRIGHT
 Copyright  ©  2025  Free  Software  Foundation,  Inc.   License GPLv3+: GNU GPL version 3 or later <https://gnu.org/li‐censes/gpl.html>. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
