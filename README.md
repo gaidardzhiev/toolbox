@@ -120,7 +120,7 @@ You can also use Toolbox commands in combination with other shell utilities:
   The man page for the main program, providing usage instructions and documentation.
 
 - **LICENSE**  
-  The license file governing the use and distribution of the project.
+  The GPLv3 license file governing the use and distribution of the project.
 
 - **README.md**  
   This file, providing an overview and instructions for building and using the project.
