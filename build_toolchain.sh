@@ -1,9 +1,9 @@
 #!/bin/sh
 
 fgcc() {
-	BINUTILS_VER="2.40"
-	GCC_VER="13.2.0"
-	GLIBC_VER="2.39"
+	BINUTILS="2.40"
+	GCC="13.2.0"
+	GLIBC="2.39"
 	PREFIX="/usr/local/gcc-static"
 	TARGET="x86_64-pc-linux-gnu"
 	SRCDIR="/usr/src"
@@ -15,12 +15,12 @@ fgcc() {
 		[y]*)
 			printf "building %s binutils, gcc and glibc form.source...\n" "$TARGET"
 			cd "$SRCDIR" || return 1
-			wget -c https://ftp.gnu.org/gnu/binutils/binutils-"$BINUTILS_VER".tar.gz || return 2
-			tar xfv binutils-"$BINUTILS_VER".tar.gz
-			rm binutils-"$BINUTILS_VER".tar.gz
+			wget -c https://ftp.gnu.org/gnu/binutils/binutils-"$BINUTILS".tar.gz || return 2
+			tar xfv binutils-"$BINUTILS".tar.gz
+			rm binutils-"$BINUTILS".tar.gz
 			mkdir -p binutils-build
 			cd binutils-build || return 3
-			../binutils-"$BINUTILS_VER"/configure \
+			../binutils-"$BINUTILS"/configure \
 				--prefix="$PREFIX" \
 				--disable-nls \
 				--without-docs \
@@ -30,15 +30,15 @@ fgcc() {
 				--target="$TARGET" || return 4
 			make "$JOBS" && make install || return 5
 			cd "$SRCDIR" || return 6
-			wget -c https://ftp.gnu.org/gnu/gcc/gcc-"$GCC_VER"/gcc-"$GCC_VER".tar.gz || return 7
-			tar xfv gcc-"$GCC_VER".tar.gz
-			rm gcc-"$GCC_VER".tar.gz
-			cd gcc-"$GCC_VER" || return 8
+			wget -c https://ftp.gnu.org/gnu/gcc/gcc-"$GCC"/gcc-"$GCC".tar.gz || return 7
+			tar xfv gcc-"$GCC".tar.gz
+			rm gcc-"$GCC".tar.gz
+			cd gcc-"$GCC" || return 8
 			./contrib/download_prerequisites || return 9
 			cd "$SRCDIR" || return 10
 			mkdir -p gcc-build
 			cd gcc-build || return 11
-			../gcc-"$GCC_VER"/configure \
+			../gcc-"$GCC"/configure \
 				--prefix="$PREFIX" \
 				--disable-multilib \
 				--enable-languages=c \
@@ -60,12 +60,12 @@ fgcc() {
 			cd linux-6.5.1 || return 16
 			make ARCH=$(echo "$TARGET" | cut -d'-' -f1) INSTALL_HDR_PATH="$PREFIX/$TARGET" headers_install || return 17
 			cd "$SRCDIR" || return 18
-			wget -c https://ftp.gnu.org/gnu/libc/glibc-"$GLIBC_VER".tar.gz || return 19
-			tar xfv glibc-"$GLIBC_VER".tar.gz
-			rm glibc-"$GLIBC_VER".tar.gz
+			wget -c https://ftp.gnu.org/gnu/libc/glibc-"$GLIBC".tar.gz || return 19
+			tar xfv glibc-"$GLIBC".tar.gz
+			rm glibc-"$GLIBC".tar.gz
 			mkdir -p glibc-build
 			cd glibc-build || return 20
-			CC="$PREFIX/bin/$TARGET-gcc" ../glibc-"$GLIBC_VER"/configure \
+			CC="$PREFIX/bin/$TARGET-gcc" ../glibc-"$GLIBC"/configure \
 				--prefix="$PREFIX" \
 				--with-headers="$PREFIX/$TARGET/include" \
 				--disable-shared \
@@ -79,7 +79,7 @@ fgcc() {
 			cd "$SRCDIR" || return 24
 			cd gcc-build || return 25
 			make distclean
-			../gcc-"$GCC_VER"/configure \
+			../gcc-"$GCC"/configure \
 				--prefix="$PREFIX" \
 				--disable-multilib \
 				--enable-languages=c \
@@ -101,17 +101,17 @@ fgcc() {
 }
 
 fmake() {
-	MK_VER="4.4"
+	MAKE="4.4"
 	printf "do you want to build make form source? (y/n)\n"
 	read X
 	case "$X" in
 		[y]*)
 			printf "building make from source...\n"	
 			cd /usr/src || return 30
-			wget https://fosszone.csd.auth.gr/gnu/make/make-"$MK_VER".tar.gz || return 31
-			tar xf make-"$MK_VER".tar.gz || return 32
-			rm make-"$MK_VER".tar.gz
-			cd make-"$MK_VER" || return 33
+			wget https://fosszone.csd.auth.gr/gnu/make/make-"$MAKE".tar.gz || return 31
+			tar xf make-"$MAKE".tar.gz || return 32
+			rm make-"$MAKE".tar.gz
+			cd make-"$MAKE" || return 33
 			./build.sh || return 34
 			cp make /usr/bin || return 35
 			make -v && return 0 || return 36
