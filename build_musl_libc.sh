@@ -1,12 +1,12 @@
 #!/bin/sh
 
-export PREFIX="/opt/musl"
+export PREFIX="/usr/local/musl"
 export BIN="$PREFIX"
 export LIB="$PREFIX"
 export GETNUMCPUS=`grep -c '^processor' /proc/cpuinfo`
 export JOBS='-j '$GETNUMCPUS''
 export MUSL="musl-1.2.5"
-export DIR="/home/src/"
+export DIR="/usr/src/"
 
 [ -d "$PREFIX" ] && { printf "$PREFIX exists...\n"; exit 0; }
 
