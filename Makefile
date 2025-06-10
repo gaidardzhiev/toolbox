@@ -4,7 +4,7 @@ BIN=toolbox
 all: $(BIN)
 
 $(BIN): %: %.c
-	$(CC) -o $@ $< $ -static
+	$(CC) -o $@ $< -static
 
 clean:
 	rm $(BIN)
