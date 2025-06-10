@@ -45,6 +45,7 @@ it along with its man page.
 ./build_toolchain.sh
 ./musl_libc_build.sh
 make
+make strip
 make install
 man toolbox
 ```
