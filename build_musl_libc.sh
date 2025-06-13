@@ -41,11 +41,11 @@ fbuild() {
 
 ftry() {
 	if cd $TMP; then
-		cat > hello.c << EOF
+		cat > hello.c << eof
 #include <stdio.h>
 int main(int argc, char **argv)
 { printf("hello %d\n", argc); }
-EOF
+eof
 		musl-gcc -static -Os hello.c
 		./a.out
 		file a.out
