@@ -402,6 +402,8 @@ int fsh(int argc, char **argv) {
 	ssize_t len;
 	while (1) {
 		printf("shell@%s ", getpwuid(getuid())->pw_name);
+		//printf("%s%s%s%s%s%s ", X, "shell", Y, "@", Z, getpwuid(getuid())->pw_name, Y);
+		//printf("%sshell@%s%s %s%s", X, Z, getpwuid(getuid())->pw_name, Y, "");
 		fflush(stdout);
 		len = getline(&in, &cap, stdin);
 		if (len == -1) {
@@ -428,7 +430,7 @@ int fsh(int argc, char **argv) {
 		if (strcmp(args[0], "cd") == 0) {
 			char *dir = (n > 1) ? args[1] : getenv("HOME");
 			if (dir == NULL) {
-				fprintf(stderr, Z"cd: HOME not set\n"Y);
+				fprintf(stderr, Z"cd: $HOME not set\n"Y);
 			} else if (chdir(dir) != 0) {
 				perror(Z"cd failed"Y);
 			}
