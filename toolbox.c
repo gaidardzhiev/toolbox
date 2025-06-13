@@ -402,8 +402,6 @@ int fsh(int argc, char **argv) {
 	ssize_t len;
 	while (1) {
 		printf("shell@%s ", getpwuid(getuid())->pw_name);
-		//printf("%s%s%s%s%s%s ", X, "shell", Y, "@", Z, getpwuid(getuid())->pw_name, Y);
-		//printf("%sshell@%s%s %s%s", X, Z, getpwuid(getuid())->pw_name, Y, "");
 		fflush(stdout);
 		len = getline(&in, &cap, stdin);
 		if (len == -1) {
