@@ -41,17 +41,13 @@ fbuild() {
 
 ftry() {
 	if cd $TMP; then
-		cat > hello.c << eof
-#include <stdio.h>
-int main(int argc, char **argv)
-{ printf("hello %d\n", argc); }
-eof
+		printf '#include <stdio.h>\nint main(int argc,char**argv){printf("hello %%d\\n",argc);}\n' > hello.c
 		musl-gcc -static -Os hello.c
 		./a.out
 		file a.out
 		size a.out
 		ldd a.out
-		rm hello.c a.out
+		rm a.out
 		return 0
 	else
 		return 32
