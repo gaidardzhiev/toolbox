@@ -47,6 +47,7 @@ ftry() {
 		file a.out
 		size a.out
 		ldd a.out
+		objdump -p a.out | grep NEEDED
 		rm a.out
 		return 0
 	else
