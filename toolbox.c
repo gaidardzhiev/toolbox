@@ -496,6 +496,6 @@ int main(int argc, char **argv) {
 			return a[i].f(argc - 1, argv + 1);
 		}
 	}
-	fprintf(stderr, "unknown command: "Z"%s\n"Y, in);
+	printf("unknown command: "Z"%s\n"Y, in);
 	return 1;
 }
