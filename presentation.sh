@@ -29,10 +29,10 @@ SPEED=30
 	echo
 } | pv -qL $SPEED
 
-LS="./toolbox ls | pv -qL 30"
-for ((i=0; i<${#LS}; i++)); do
-	printf "%s" "${LS:$i:1}"
+FILE="./toolbox file toolbox | pv -qL 30"
+for ((i=0; i<${#FILE}; i++)); do
+	printf "%s" "${FILE:$i:1}"
 	sleep 0.02
 done
 printf "\n"
-eval "$LS"
+eval "$FILE"
