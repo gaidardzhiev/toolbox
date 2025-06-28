@@ -1,4 +1,5 @@
 #!/bin/sh
+#printf "ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :0.0 output.mp4\n"
 
 TITLE="Toolbox"
 NAME="Mr. Ivan Gaydardzhiev"
@@ -35,5 +36,3 @@ for ((i=0; i<${#LS}; i++)); do
 done
 printf "\n"
 eval "$LS"
-
-printf "ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :0.0 output.mp4\n"
