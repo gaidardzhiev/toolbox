@@ -64,7 +64,7 @@ Toolbox operates as a single statically linked executable that determines which 
 ./toolbox rm /tmp/cpuinfo
 ./toolbox head toolbox.c 20
 ./toolbox file toolbox
-./toolbox grep "main()" toolbox.c
+./toolbox grep "main" toolbox.c
 ./toolbox rmdir /tmp/testdir
 ./toolbox ascii2hex
 ./toolbox sync
