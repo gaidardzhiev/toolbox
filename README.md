@@ -56,7 +56,7 @@ Toolbox operates as a single statically linked executable that determines which 
 
 ```
 ./toolbox ls /proc
-./toolbox cp /proc/cpuinfo /tmp
+./toolbox cp /proc/cpuinfo /tmp/cpuinfo
 ./toolbox mkdir /tmp/testdir
 ./toolbox cat /proc/cpuinfo
 ./toolbox echo "Hack the World"
