@@ -1,5 +1,7 @@
 # Toolbox
 
+#### Video Demo: https://rumble.com/v6vl117-cs50-presentation.html
+
 ## What is Toolbox?
 
 Toolbox is a compact, statically linked binary that combines many common command line utilities into a single executable. It is designed as a minimalist and efficient toolkit providing essential \*nix commands, all accessible through one binary. This approach simplifies deployment and usage, especially in resource constrained or embedded environments.
