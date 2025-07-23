@@ -461,7 +461,7 @@ int fsh(int argc, char **argv) {
 // --- main --- //
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		printf("usage: %s <command> <args>\n\n" "commands: ls | cp | mkdir | cat | echo | kill | clear | rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg | shell\n", argv[0]);
+		printf("usage:\n\t%s <command> <args>\n\n" "commands:\n\tls | cp | mkdir | cat | echo | kill | clear | rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg | shell\n", argv[0]);
 		return 1;
 	}
 	typedef struct {
