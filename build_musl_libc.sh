@@ -40,7 +40,7 @@ fbuild() {
 }
 
 ftry() {
-	if cd $TMP; then
+	if cd "$TMP"; then
 		printf '#include <stdio.h>\nint main(int argc,char**argv){printf("hello %%d\\n",argc);}\n' > hello.c
 		musl-gcc -static -Os hello.c
 		./a.out
