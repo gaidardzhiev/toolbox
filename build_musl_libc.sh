@@ -13,7 +13,7 @@ export DIR="/usr/src/"
 [ ! -d "$DIR" ] && mkdir -p "$DIR"
 
 fget() {
-	if cd $DIR; then
+	if cd "$DIR"; then
 		wget https://musl.libc.org/releases/$MUSL.tar.gz
 		tar xf $MUSL.tar.gz
 		rm $MUSL.tar.gz
