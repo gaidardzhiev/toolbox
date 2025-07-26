@@ -17,7 +17,7 @@ fget() {
 		wget https://musl.libc.org/releases/"$MUSL".tar.gz
 		tar xf "$MUSL".tar.gz
 		rm "$MUSL".tar.gz
-		cd $MUSL
+		cd "$MUSL"
 		return 0
 	else
 		return 8
