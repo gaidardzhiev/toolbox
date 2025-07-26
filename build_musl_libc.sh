@@ -27,7 +27,7 @@ fget() {
 fbuild() {
 	if ./configure \
 		--prefix="$PREFIX" \
-		--exec-prefix=$BIN \
+		--exec-prefix="$BIN" \
 		--syslibdir=$LIB \
 		--disable-shared; then
 		make
