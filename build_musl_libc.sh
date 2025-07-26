@@ -14,7 +14,7 @@ export DIR="/usr/src/"
 
 fget() {
 	if cd "$DIR"; then
-		wget https://musl.libc.org/releases/$MUSL.tar.gz
+		wget https://musl.libc.org/releases/"$MUSL".tar.gz
 		tar xf $MUSL.tar.gz
 		rm $MUSL.tar.gz
 		cd $MUSL
