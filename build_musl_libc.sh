@@ -32,7 +32,7 @@ fbuild() {
 		--disable-shared; then
 		make
 		make install
-		cp $BIN/bin/musl-gcc /usr/bin/
+		cp "$BIN"/bin/musl-gcc /usr/bin/
 		return 0
 	else
 		return 16
