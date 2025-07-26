@@ -28,7 +28,7 @@ fbuild() {
 	if ./configure \
 		--prefix="$PREFIX" \
 		--exec-prefix="$BIN" \
-		--syslibdir=$LIB \
+		--syslibdir="$LIB" \
 		--disable-shared; then
 		make
 		make install
