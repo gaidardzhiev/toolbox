@@ -8,7 +8,7 @@ export JOBS='-j '$GETNUMCPUS''
 export MUSL="musl-1.2.5"
 export DIR="/usr/src/"
 
-[ -d "$PREFIX" ] && { printf "$PREFIX exists...\n"; exit 0; }
+[ -d "$PREFIX" ] && { printf "%s exists...\n" "$PREFIX"; exit 0; }
 
 [ ! -d "$DIR" ] && mkdir -p "$DIR"
 
