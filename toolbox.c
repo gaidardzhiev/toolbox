@@ -458,51 +458,6 @@ int fsh(int argc, char **argv) {
 	return 0;
 }
 
-// --- id --- //
-int fid(int argc, char **argv);
-	uid_t u = getuid();
-	gid_t g = getgid();
-	struct passwd *p = getpwuid(u);
-	struct group *r = getgrgid(g);
-	printf("uid=%d [%s]\n", u, p ? p->pw_name : "unknown");
-	printf("gid=%d [%s]\n", g, r ? r->gr_name : "unknown");
-	uid_t e = geteuid();
-	p = getpwuid(e);
-	printf("euid=%d [%s]\n", e, p ? p->pw_name : "unknown");
-	gid_t a[32];
-	int n = 32;
-	p = getpwuid(u);
-	if (p != NULL) {
-		if (getgrouplist(p->pw_name, g, a, &n) == -1) {
-			if (n > 32) {
-				gid_t *b = malloc(n * sizeof(gid_t));
-				if (b) {
-					if (getgrouplist(p->pw_name, g, b, &n) != -1) {
-						printf("groups=");
-						for (int i = 0; i < n; i++) {
-							r = getgrgid(b[i]);
-							printf("%d [%s]", b[i], r ? r->gr_name : "unknown");
-							if (i < n - 1) printf("\n");
-						}
-						printf("\n");
-					}
-					free(b);
-				}
-			}
-		} else {
-			printf("groups=");
-			for (int i = 0; i < n; i++) {
-				r = getgrgid(a[i]);
-				printf("%d [%s]", a[i], r ? r->gr_name : "unknown");
-				if (i < n - 1) printf("\n");
-			}
-			printf("\n");
-		}
-	} else {
-		printf("groups= (user not found)\n");
-	}
-}
-
 // --- main --- //
 int main(int argc, char **argv) {
 	if (argc < 2) {
@@ -532,8 +487,7 @@ int main(int argc, char **argv) {
 		{"false", ffalse},
 		{"tty", ftty},
 		{"kmsg", fkmsg},
-		{"shell", fsh},
-		{"id", fid}
+		{"shell", fsh}
 	};
 	size_t n = sizeof(a) / sizeof(a[0]);
 	const char *in = argv[1];
