@@ -22,7 +22,6 @@
 #define Y "\x1b[0m"
 #define Z "\x1b[91m"
 
-// --- ls --- //
 int fls(int argc, char **argv) {
 	const char *dir = argc > 1 ? argv[1] : ".";
 	DIR *dp = opendir(dir);
@@ -36,7 +35,6 @@ int fls(int argc, char **argv) {
 	return 0;
 }
 
-// --- cp --- //
 int fcp(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <src> <dst>\n", argv[0]);
@@ -68,7 +66,6 @@ int fcp(int argc, char **argv) {
 	return 0;
 }
 
-// --- mkdir --- //
 int fmkdir(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
@@ -81,7 +78,6 @@ int fmkdir(int argc, char **argv) {
 	return 0;
 }
 
-// --- cat --- //
 int fcat(int argc, char **argv) {
 	if (argc == 1) {
 		char buf[65536];
@@ -101,13 +97,11 @@ int fcat(int argc, char **argv) {
 	return 0;
 }
 
-// --- echo --- //
 int fecho(int argc, char **argv) {
 	for (int i = 1; i < argc; i++) printf("%s%c", argv[i], i < argc-1 ? ' ' : '\n');
 	return 0;
 }
 
-// --- kill --- //
 int fkill(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <SIGNAL> <PID>\n", argv[0]);
@@ -122,7 +116,6 @@ int fkill(int argc, char **argv) {
 	return 0;
 }
 
-// --- clear --- //
 int fclear(int argc, char **argv) {
 	printf("\033c");
 	return 0;
@@ -144,7 +137,6 @@ int frm(int argc, char **argv) {
 	return r;
 }
 
-// --- head --- //
 int fhead(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <file> <lines>\n", argv[0]);
@@ -162,7 +154,6 @@ int fhead(int argc, char **argv) {
 	return 0;
 }
 
-// --- file --- //
 void felf(const char *filename) {
 	FILE *file;
 	unsigned char e_ident[64];
@@ -299,7 +290,6 @@ int ffile(int argc, char **argv) {
 	return 0;
 }
 
-// --- grep --- //
 int fgrep(int argc, char **argv) {
 	if (argc < 3) {
 		fprintf(stderr, "usage: toolbox %s <pattern> <file>\n", argv[0]);
@@ -325,7 +315,6 @@ int fgrep(int argc, char **argv) {
 	return r;
 }
 
-// --- rmdir --- //
 int frmdir(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <dir>\n", argv[0]);
@@ -341,7 +330,6 @@ int frmdir(int argc, char **argv) {
 	return r;
 }
 
-// --- ascii2hex --- //
 int fa2x(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <text>\n", argv[0]);
@@ -356,24 +344,20 @@ int fa2x(int argc, char **argv) {
 }
 
 
-// --- sync --- //
 int ffsync(int argc, char **argv) {
 	sync();
 	printf(X"filesystem cache committed to disk...\n"Y);
 	return 0;
 }
 
-//  --- true --- //
 int ftrue(int argc, char **argv) {
 	return 0;
 }
 
-// --- false --- //
 int ffalse(int argc, char **argv) {
 	return 1;
 }
 
-// --- tty --- //
 int ftty(int argc, char **argv) {
 	char *tty_name = ttyname(STDIN_FILENO);
 	if (tty_name)
@@ -383,7 +367,6 @@ int ftty(int argc, char **argv) {
 	return 0;
 }
 
-// --- kmsg --- //
 int fkmsg(int argc, char **argv) {
 	char buf[65536];
 	FILE *fp;
@@ -399,7 +382,6 @@ int fkmsg(int argc, char **argv) {
 	return 0;
 }
 
-// --- shell --- //
 int fsh(int argc, char **argv) {
 	const int ARGS = 64;
 	char *in = NULL;
@@ -463,7 +445,6 @@ int fsh(int argc, char **argv) {
 	return 0;
 }
 
-// --- main --- //
 int main(int argc, char **argv) {
 	if (argc < 2) {
 		printf("usage:\n\t%s <command> <args>\n\n" "commands:\n\tls | cp | mkdir | cat | echo | kill | clear | rm | head | file | grep | rmdir | ascii2hex | sync | true | false | tty | kmsg | shell\n", argv[0]);
