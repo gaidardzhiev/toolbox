@@ -121,7 +121,6 @@ int fclear(int argc, char **argv) {
 	return 0;
 }
 
-// --- rm --- //
 int frm(int argc, char **argv) {
 	if (argc < 2) {
 		fprintf(stderr, "usage: toolbox %s <file>\n", argv[0]);
