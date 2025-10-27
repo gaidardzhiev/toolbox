@@ -6,7 +6,7 @@ Toolbox is a compact, statically linked binary that combines many common command
 
 Similar to BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard utilities typically found in GNU coreutils, util-linux, and other common \*nix toolsets. While Toolbox commands may not include every advanced feature of their full fledged GNU counterparts, they cover the core functionality expected by most users and scripts, ensuring familiar behavior and compatibility.
 
-By consolidating multiple utilities into one executable, Toolbox reduces disk space usage, simplifies updates, and eases distribution, making it highly practical for minimal Linux setups, containers, rescue environments, and embedded systems.
+By consolidating multiple utilities into one executable, Toolbox reduces disk space usage, simplifies updates, and eases distribution, making it highly practical for minimal `*nix` setups, containers, rescue environments, and embedded systems.
 
 ## Why Choose Toolbox?
 
@@ -16,7 +16,7 @@ Instead of installing dozens of separate utilities, Toolbox bundles them into on
 
 ### Static Linking
 
-Toolbox is built as a statically linked binary, meaning it does not depend on external shared libraries at runtime. This enhances portability across various Linux distributions and environments without worrying about missing dependencies.
+Toolbox is built as a statically linked binary, meaning it does not depend on external shared libraries at runtime. This enhances portability across various `*nix` distributions and environments without worrying about missing dependencies.
 
 ### Minimalist and Efficient
 
