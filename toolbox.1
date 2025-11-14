@@ -1,17 +1,17 @@
 .\" manpage for toolbox
 .TH TOOLBOX 1 "2025-05-30" "Toolbox 1.0" "User Commands"
 .SH NAME
-toolbox \- a compact, statically linked binary combining many common Unix command line utilities
+toolbox \- a compact, statically linked binary combining many common *nix command line utilities
 .SH SYNOPSIS
 .B toolbox
 [\fICOMMAND\fR] [\fIARGS\fR]...
 .SH DESCRIPTION
-Toolbox is a minimalist and efficient toolkit that provides essential Unix commands
+Toolbox is a minimalist and efficient toolkit that provides essential *nix commands
 through a single statically linked executable. It simplifies deployment and usage,
 especially in resource constrained or embedded environments.
 
 Much like BusyBox and ToyBox, Toolbox offers streamlined replacements for many standard
-utilities found in GNU coreutils, util-linux, and other common Unix toolsets. While
+utilities found in GNU coreutils, util-linux, and other common *nix toolsets. While
 toolbox commands may not include every advanced feature of their full fledged GNU
 counterparts, they cover the core functionality expected by most users and scripts,
 ensuring familiar behavior and compatibility.
@@ -23,11 +23,11 @@ and easing distribution.
 
 .IP "\fBStatic Linking:\fR"
 Built as a statically linked binary with no runtime dependencies on shared libraries,
-ensuring portability across Linux distributions.
+ensuring portability across GNU/Linux distributions.
 
 .IP "\fBMinimalist and Efficient:\fR"
 Commands are designed for size and simplicity, ideal for embedded systems, containers,
-rescue environments, or minimal Linux setups.
+rescue environments, or minimal GNU/Linux setups.
 
 .IP "\fBExtensible Command Dispatch:\fR"
 Uses a clean mechanism to dispatch commands, allowing easy addition of new commands
@@ -82,7 +82,7 @@ To build and install toolbox, run the following commands:
 Written and maintained by Mr. Ivan Gaydardzhiev.
 
 .SH COPYRIGHT
-Copyright  ©  2025  Free  Software  Foundation,  Inc.   License GPLv3+: GNU GPL version 3 or later <https://gnu.org/li‐censes/gpl.html>. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
+Copyright  ©  2025  Free  Software  Foundation,  Inc.   License GPLv3: GNU GPL version 3. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
 
 .SH SEE ALSO
 busybox(1), toybox(1), coreutils(1)
